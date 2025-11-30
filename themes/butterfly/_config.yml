@@ -58,7 +58,7 @@ social:
 favicon: /img/favicon.png
 
 avatar:
-  img: /img/butterfly-icon.png
+  img: /img/avatar.jpg
   effect: false
 
 # Disable all banner images
@@ -94,7 +94,7 @@ footer_img: false
 
 # Website Background
 # Can set it to color or image url
-background: /img/background.png
+background: /img/background.jpg
 
 cover:
   # Disable the cover or not
@@ -453,8 +453,8 @@ busuanzi:
 math:
   # Choose: mathjax, katex
   # Leave it empty if you don't need math
-  use: katex
-  per_page: false
+  use: mathjax
+  per_page: true
   hide_scrollbar: false
 
   mathjax:
