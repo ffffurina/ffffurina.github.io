@@ -1,6 +1,7 @@
 ---
 categories:
-- 学习笔记
+- 小记
+- 计算机视觉
 date: '2025-11-27 14:35:16'
 title: 4 Image Generation Intro
 ---

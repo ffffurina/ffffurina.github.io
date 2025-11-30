@@ -1,6 +1,7 @@
 ---
 categories:
-- 学习笔记
+- 小记
+- 计算机视觉
 date: '2025-11-27 15:47:33'
 title: 5 Image Segmentation
 ---

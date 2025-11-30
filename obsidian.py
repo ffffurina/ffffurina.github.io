@@ -2,155 +2,142 @@ import os
 import shutil
 import re
 import datetime
-import yaml # 需要安装 pyyaml: pip install pyyaml
+import yaml
 
-# ================= 配置区域 =================
-# 1. 你的 Obsidian 仓库根目录 (请修改这里!)
-# 注意：Windows路径请使用双反斜杠 \\ 或反斜杠 /
-OBSIDIAN_VAULT_PATH = r"C:\Users\23352\Desktop\CS技术栈\CS技术栈\CV\Vision with Deep Learning" 
+# ================= 核心配置区域 (请仔细修改这4项) =================
 
-# 2. Obsidian 中存放图片的文件夹名称
-ATTACHMENT_FOLDER_NAME = "attachment"
+# 1. 你的 Obsidian 笔记所在的文件夹 (你的源)
+# 你当前指向的是一个具体的子主题文件夹
+SOURCE_NOTES_PATH = r"C:\Users\23352\Desktop\CS技术栈\CS技术栈\CV\Vision with Deep Learning"
 
-# 3. Hexo 的 source 目录 (通常不用改，除非脚本不在 my-blog 下)
+# 2. 你的 Obsidian 图片附件库的【绝对路径】
+# 请去你的电脑里找到存放这些 png 的那个文件夹，把完整路径复制到这里！
+# 假设它在你的 Vault 根目录下，可能是下面这样（请务必确认）：
+OBSIDIAN_IMAGES_PATH = r"C:\Users\23352\Desktop\CS技术栈\CS技术栈\CV\Vision with Deep Learning\attachments" 
+
+# 3. 你希望这批笔记在博客里属于什么分类？
+# 格式：["一级分类", "二级分类", "三级分类"...]
+# 既然这批笔记是 CV 相关的，我们强制指定分类，不再自动计算
+TARGET_CATEGORIES = ["小记", "计算机视觉"]
+
+# 4. Hexo 的 posts 目录 (通常不用改)
 HEXO_SOURCE_DIR = "source"
 HEXO_POSTS_DIR = os.path.join(HEXO_SOURCE_DIR, "_posts")
-HEXO_IMAGES_DIR = os.path.join(HEXO_SOURCE_DIR, "images")
 
-# 4. 默认顶级分类名称
-DEFAULT_CATEGORY = "学习笔记"
-# ===========================================
+# ==============================================================
 
 def setup_directories():
     if not os.path.exists(HEXO_POSTS_DIR):
         os.makedirs(HEXO_POSTS_DIR)
-    if not os.path.exists(HEXO_IMAGES_DIR):
-        os.makedirs(HEXO_IMAGES_DIR)
+
+def find_image_file(img_name):
+    """
+    在指定的图片库绝对路径中查找图片
+    """
+    # 1. 直接检查根目录
+    target_path = os.path.join(OBSIDIAN_IMAGES_PATH, img_name)
+    if os.path.exists(target_path):
+        return target_path
+    
+    # 2. 如果图片库里还有子文件夹，递归查找 (防止图片被整理过)
+    for root, dirs, files in os.walk(OBSIDIAN_IMAGES_PATH):
+        if img_name in files:
+            return os.path.join(root, img_name)
+    
+    return None
 
 def process_file(root, filename):
     file_path = os.path.join(root, filename)
-    
-    # 1. 计算分类 (Categories)
-    # 获取相对于 Vault 根目录的路径，例如 "Computer/Language/Python.md"
-    rel_path = os.path.relpath(root, OBSIDIAN_VAULT_PATH)
-    
-    # 如果文件在根目录下，rel_path 是 "."
-    if rel_path == ".":
-        categories = [DEFAULT_CATEGORY]
-    else:
-        # 将路径分割为分类列表，例如 ['Computer', 'Language']
-        sub_cats = rel_path.split(os.sep)
-        # 过滤掉 attachment 文件夹本身（如果笔记不小心放进去了）
-        if ATTACHMENT_FOLDER_NAME in sub_cats:
-            return
-        categories = [DEFAULT_CATEGORY] + sub_cats
+    post_name_no_ext = os.path.splitext(filename)[0]
 
-    # 2. 读取 Markdown 内容
+    # --- 1. 读取内容 ---
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # 3. 处理 Front Matter (YAML 头)
-    # 检查是否已有 Front Matter
+    # --- 2. 处理 Front Matter ---
     front_matter = {}
     body = content
-    
     if content.startswith('---'):
         try:
-            # 简单的 Front Matter 提取
             parts = content.split('---', 2)
             if len(parts) >= 3:
                 front_matter = yaml.safe_load(parts[1]) or {}
                 body = parts[2]
         except Exception as e:
-            print(f"Warning: Failed to parse Front Matter for {filename}: {e}")
+            print(f"Warning: Front Matter parse error in {filename}")
 
-    # 补充/覆盖必要的字段
+    # 补充 Title 和 Date
     if 'title' not in front_matter:
-        front_matter['title'] = os.path.splitext(filename)[0]
-    
+        front_matter['title'] = post_name_no_ext
     if 'date' not in front_matter:
-        # 使用文件修改时间作为日期
         mtime = os.path.getmtime(file_path)
-        dt = datetime.datetime.fromtimestamp(mtime)
-        front_matter['date'] = dt.strftime('%Y-%m-%d %H:%M:%S')
+        front_matter['date'] = datetime.datetime.fromtimestamp(mtime).strftime('%Y-%m-%d %H:%M:%S')
     
-    # 合并分类 (保留原有的 tags 等)
-    front_matter['categories'] = categories
+    # 【关键修改】强制使用配置好的分类
+    front_matter['categories'] = TARGET_CATEGORIES
 
-    # 4. 处理图片链接
-    # 匹配模式: ![](filename.png) 或 ![[filename.png]]
-    # 这里主要处理标准 Markdown: ![](...)
+    # --- 3. 图片处理与资源文件夹 ---
+    # 目标路径: source/_posts/笔记名/
+    asset_folder_dir = os.path.join(HEXO_POSTS_DIR, post_name_no_ext)
     
     def replace_image(match):
-        img_name = match.group(1)
-        # 忽略网络图片 (http 开头)
-        if img_name.startswith('http'):
+        img_name = match.group(1) # 获取文件名
+        
+        # 忽略网络图片
+        if img_name.startswith('http') or img_name.startswith('//'):
             return match.group(0)
-        
-        # 尝试在 Obsidian attachment 文件夹中找到该图片
-        # 假设图片都在 attachment 文件夹的根目录，或者递归查找
-        src_image_path = find_image_in_attachment(img_name)
-        
-        if src_image_path:
-            # 复制图片到 Hexo images 目录
-            dest_image_path = os.path.join(HEXO_IMAGES_DIR, img_name)
-            if not os.path.exists(dest_image_path):
-                shutil.copy2(src_image_path, dest_image_path)
-                print(f"  [Image] Copied: {img_name}")
             
-            # 返回新的 Hexo 链接格式
-            # 使用 basename 确保链接指向 source/images 下的扁平化文件
-            return f"![](/images/{os.path.basename(img_name)})"
+        # 提取纯文件名 (处理 attachment/xxx.png 这种情况)
+        img_basename = os.path.basename(img_name)
+        
+        # 使用绝对路径查找图片
+        src_path = find_image_file(img_basename)
+        
+        if src_path:
+            # 创建资源文件夹
+            if not os.path.exists(asset_folder_dir):
+                os.makedirs(asset_folder_dir)
+            
+            # 复制图片
+            dest_path = os.path.join(asset_folder_dir, img_basename)
+            if not os.path.exists(dest_path):
+                shutil.copy2(src_path, dest_path)
+                print(f"  [Copy] {img_basename}")
+            
+            # 返回 Markdown 链接 (hexo-image-link 插件兼容格式)
+            return f"![]({img_basename})"
         else:
-            print(f"  [Warning] Image not found: {img_name} in {filename}")
+            print(f"  [Missing] 找不到图片: {img_basename} (请检查 OBSIDIAN_IMAGES_PATH 设置)")
             return match.group(0)
 
-    # 正则替换: ![](path/to/image.png) -> 捕获文件名
-    # 简化处理：假设 Obsidian 里引用的是文件名
-    # 匹配 ![](...) 里的内容
+    # 正则替换
     body = re.sub(r'!\[.*?\]\((.*?)\)', replace_image, body)
-
-    # 5. 生成新的文件内容
-    new_content = "---\n"
-    new_content += yaml.dump(front_matter, allow_unicode=True, default_flow_style=False)
-    new_content += "---\n"
-    new_content += body
-
-    # 6. 写入 Hexo _posts
-    # 为了避免文件名冲突，可以保留目录结构，或者直接扁平化（如果有重名文件会覆盖）
-    # 这里演示扁平化写入到 _posts，如果需要保留子文件夹也可以
+    
+    # --- 4. 写入文件 ---
+    new_content = "---\n" + yaml.dump(front_matter, allow_unicode=True, default_flow_style=False) + "---\n" + body
+    
     dest_path = os.path.join(HEXO_POSTS_DIR, filename)
     with open(dest_path, 'w', encoding='utf-8') as f:
         f.write(new_content)
-    print(f"[Post] Processed: {filename} -> {categories}")
-
-def find_image_in_attachment(img_name):
-    # 在 attachment 文件夹及其子文件夹中搜索图片
-    # 简单起见，先直接拼路径，如果你的 attachment 只有一层
-    possible_path = os.path.join(OBSIDIAN_VAULT_PATH, ATTACHMENT_FOLDER_NAME, os.path.basename(img_name))
-    if os.path.exists(possible_path):
-        return possible_path
-    
-    # 如果 attachment 也有子文件夹，需要遍历查找（会慢一点）
-    attach_root = os.path.join(OBSIDIAN_VAULT_PATH, ATTACHMENT_FOLDER_NAME)
-    for root, dirs, files in os.walk(attach_root):
-        if os.path.basename(img_name) in files:
-            return os.path.join(root, os.path.basename(img_name))
-    return None
+    print(f"[Done] {filename} -> {TARGET_CATEGORIES}")
 
 def main():
     setup_directories()
-    print(f"Start importing from: {OBSIDIAN_VAULT_PATH}")
+    # 检查图片路径是否存在
+    if not os.path.exists(OBSIDIAN_IMAGES_PATH):
+        print(f"【错误】图片路径不存在: {OBSIDIAN_IMAGES_PATH}")
+        print("请修改脚本中的 OBSIDIAN_IMAGES_PATH 配置！")
+        return
+
+    print(f"开始导入... \n源笔记: {SOURCE_NOTES_PATH}\n图片库: {OBSIDIAN_IMAGES_PATH}")
     
-    for root, dirs, files in os.walk(OBSIDIAN_VAULT_PATH):
-        # 忽略隐藏目录和 Hexo 目录（如果重叠）
-        dirs[:] = [d for d in dirs if not d.startswith('.') and d != 'node_modules' and d != 'public']
-        
+    for root, dirs, files in os.walk(SOURCE_NOTES_PATH):
+        dirs[:] = [d for d in dirs if not d.startswith('.')] # 忽略隐藏文件夹
         for file in files:
             if file.endswith('.md'):
                 process_file(root, file)
-
-    print("Import finished!")
+    
+    print("\n导入结束！建议执行: hexo clean && hexo g && hexo s")
 
 if __name__ == "__main__":
     main()

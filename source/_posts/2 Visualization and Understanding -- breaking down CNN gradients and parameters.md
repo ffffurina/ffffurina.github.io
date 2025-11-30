@@ -1,6 +1,7 @@
 ---
 categories:
-- 学习笔记
+- 小记
+- 计算机视觉
 date: '2025-11-27 13:31:46'
 title: 2 Visualization and Understanding -- breaking down CNN gradients and parameters
 ---

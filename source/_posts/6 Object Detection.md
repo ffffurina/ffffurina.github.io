@@ -1,6 +1,7 @@
 ---
 categories:
-- 学习笔记
+- 小记
+- 计算机视觉
 date: '2025-11-30 14:35:20'
 title: 6 Object Detection
 ---
