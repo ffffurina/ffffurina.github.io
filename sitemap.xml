@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/link/index.html</loc>
+    <loc>https://ffffurina.top/travel/index.html</loc>
     
     <lastmod>2025-11-30</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://ffffurina.top/notes/index.html</loc>
     
     <lastmod>2025-11-30</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://ffffurina.top/about/index.html</loc>
     
     <lastmod>2025-11-30</lastmod>
     
@@ -29,7 +29,52 @@
   </url>
   
   <url>
-    <loc>http://example.com/2025/11/30/hello-world/</loc>
+    <loc>https://ffffurina.top/archives/index.html</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/books/index.html</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/link/index.html</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/categories/index.html</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/tags/index.html</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/2025/11/30/hello-world/</loc>
     
     <lastmod>2025-11-30</lastmod>
     
@@ -39,7 +84,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://ffffurina.top/</loc>
     <lastmod>2025-11-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -47,14 +92,14 @@
 
   
   <url>
-    <loc>http://example.com/tags/node-js/</loc>
+    <loc>https://ffffurina.top/tags/node-js/</loc>
     <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/hexo/</loc>
+    <loc>https://ffffurina.top/tags/hexo/</loc>
     <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -63,7 +108,7 @@
 
   
   <url>
-    <loc>http://example.com/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://ffffurina.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
