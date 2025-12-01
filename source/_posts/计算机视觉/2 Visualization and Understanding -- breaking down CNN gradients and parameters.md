@@ -1,9 +1,10 @@
 ---
 categories:
-- 小记
-- 计算机视觉
+  - 计算机视觉
 date: '2025-11-27 13:31:46'
-title: 2 Visualization and Understanding -- breaking down CNN gradients and parameters
+title: >-
+  2 Visualization and Understanding -- breaking down CNN gradients and
+  parameters
 ---
 在 CNN 取得巨大成功后，一个核心问题随之而来：**“神经网络到底学到了什么？”** 我们常常把深度网络称为“黑盒”，而这一章的内容就是试图打开这个黑盒，通过可视化手段来解释网络的内部运作机制。
 

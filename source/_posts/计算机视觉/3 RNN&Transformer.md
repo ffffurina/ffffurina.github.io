@@ -1,13 +1,10 @@
 ---
 categories:
-- 小记
-- 计算机视觉
-date: '2025-11-27 14:11:06'
+  - 计算机视觉
+date: '2025-12-01 12:55:36'
 title: 3 RNN&Transformer
 ---
 这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 **Transformer**。
-具体内容参考RNN[obsidian://open?vault=CS%E6%8A%80%E6%9C%AF%E6%A0%88&file=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%2F6.RNN]
-Transformer[obsidian://open?vault=CS%E6%8A%80%E6%9C%AF%E6%A0%88&file=NLP%2FTransformer]
 
 ---
 
@@ -46,13 +43,13 @@ RNN 最大的瓶颈在于：它试图把所有历史信息压缩到一个固定�
 在生成输出（比如写图片描述的下一个词）时，不要只盯着那个压缩后的 $h_t$，而是**回头看一眼输入序列的所有位置**，并根据相关性**聚焦（Attend）** 到最相关的部分。
 * **软注意力 (Soft Attention)**：对所有输入区域加权求和，是可微的，可以端到端训练。
 * **硬注意力 (Hard Attention)**：通过强化学习或采样选择某个区域，不可微。
-![](1deca69a-13d4-44bd-9591-3ccae7a60298.png)
+![](/images/1deca69a-13d4-44bd-9591-3ccae7a60298.png)
 ---
 
 ### 第三阶段：Transformer 与 ViT (Vision Transformer)
 
 这是目前 AI 领域最重要的架构变革。2017 年的论文《Attention Is All You Need》提出：如果我们有了注意力机制，还需要 RNN 的循环结构吗？答案是不需要。
-![](f860c041-0c54-4f2a-801e-8bd8274cf07a.png)
+![](/images/f860c041-0c54-4f2a-801e-8bd8274cf07a.png)
 #### 1. Transformer 的核心：自注意力 (Self-Attention)
 Transformer 彻底抛弃了循环和卷积，完全依赖注意力机制。
 * **Q, K, V 模型**：输入向量被映射为 Query (查询)、Key (键)、Value (值)。
@@ -69,7 +66,7 @@ Transformer 彻底抛弃了循环和卷积，完全依赖注意力机制。
 2.  **Linear Projection**：把每个 Patch 拉平（Flatten）并通过一个全连接层映射为向量。**这就相当于图片中的“单词”（Token）**。
 3.  **Transformer Encoder**：把这些 Patch 向量加上位置编码，直接扔进标准的 Transformer 编码器里。
 4.  **Class Token**：借鉴 BERT，在序列开头加一个特殊的 `[CLS]` Token，最后用它的输出来做分类。
-![](2f4d6d3c-6642-4b9e-a57f-822b653eb4d8.png)
+![](/images/2f4d6d3c-6642-4b9e-a57f-822b653eb4d8.png)
 **ViT vs CNN (Inductive Bias 的再思考)**：
 * **CNN** 有很强的归纳偏置（局部性、平移等变性），所以它在小数据上学得快，泛化好。
 * **ViT** 几乎没有这些偏置（它允许任意两个 Patch 之间直接交互，是全局的）。
@@ -96,4 +93,3 @@ Transformer 彻底抛弃了循环和卷积，完全依赖注意力机制。
 * **RNN** 让我们可以处理序列。
 * **Attention** 让我们不再受限于定长记忆。
 * **Transformer/ViT** 统一了 NLP 和 CV，证明了只要数据足够多，一个通用的、全局关联的模型可以学习到比人类设计的先验（卷积）更强大的特征表示。
-![](/images/82bca4fd-9ab5-4e03-a745-48b8ba47dfa2.png)

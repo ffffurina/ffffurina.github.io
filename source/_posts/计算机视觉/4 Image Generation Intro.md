@@ -1,19 +1,9 @@
 ---
 categories:
-- 小记
-- 计算机视觉
-date: '2025-11-27 14:35:16'
+  - 计算机视觉
+date: '2025-12-01 12:55:31'
 title: 4 Image Generation Intro
 ---
-本讲涵盖了深度生成模型的四大主流范式：自回归模型 (Autoregressive Models)、变分自编码器 (VAE)、生成对抗网络 (GAN) 以及扩散模型 (Diffusion Models)。
-可以参考深度学习高级话题[]
-
----
-
-# Lecture 21: Image Generation (图像生成)
-
-生成式学习的核心目标是学习数据的潜在分布 $P(x)$，从而能够生成与真实数据分布相似的新样本。
-
 ## 1. 自回归模型 (Autoregressive Models)
 
 ### 1.1 核心思想

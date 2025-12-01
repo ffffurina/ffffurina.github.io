@@ -1,11 +1,9 @@
 ---
 categories:
-- 小记
-- 计算机视觉
-date: '2025-11-30 14:35:20'
+  - 计算机视觉
+date: '2025-12-01 12:55:11'
 title: 6 Object Detection
 ---
-# Lecture 22: Object Detection (目标检测)
 
 ## 1. 任务定义与挑战
 

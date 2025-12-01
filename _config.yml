@@ -70,6 +70,24 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+# Auto Category
+auto_category:
+  enable: true
+  depth:
+
+# Category Generator
+category_generator:
+  per_page: 10
+  order_by: title
+
+# Archive Generator
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+  daily: false
+  order_by: title
+
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true

@@ -19,9 +19,7 @@ nav:
 
 menu:
   主页: / || fas fa-home
-  小记:
-    全部小记: /notes/ || fas fa-code-branch
-    计算机视觉: /categories/小记/计算机视觉/ || fas fa-eye  
+  小记: /categories/ || fas fa-code-branch
   时间线: /archives/ || fas fa-history    
   关于: /about/ || fas fa-user            
   友链: /link/ || fas fa-link             

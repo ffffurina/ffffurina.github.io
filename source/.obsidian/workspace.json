@@ -1,41 +1,56 @@
 {
   "main": {
-    "id": "706b5bd06859cfca",
+    "id": "f458fba8b374a564",
     "type": "split",
     "children": [
       {
-        "id": "52ba1f32e084c918",
+        "id": "ec0c07a8f334295d",
         "type": "tabs",
         "children": [
           {
-            "id": "c18b91e2bc793026",
+            "id": "6357946ace79e92e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/3 RNN&Transformer.md",
+                "file": "CV/Vision with Deep Learning/3 RNN&Transformer.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "3 RNN&Transformer"
             }
+          },
+          {
+            "id": "2ed3f203d92d7f30",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "_posts/计算机视觉/1. CNN.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "1. CNN"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "940a1b493089ce00",
+    "id": "fcded2cc66cfe2e1",
     "type": "split",
     "children": [
       {
-        "id": "4f47a77ccfe5f857",
+        "id": "0dae95f5537250ff",
         "type": "tabs",
         "children": [
           {
-            "id": "2dfabaa39c4f2359",
+            "id": "1964420e3363186e",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +63,7 @@
             }
           },
           {
-            "id": "c23d1ccf80b47e3c",
+            "id": "503760547b4ab8b1",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +80,7 @@
             }
           },
           {
-            "id": "3705ecbccdaedc17",
+            "id": "d0fe06ba0d05498c",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -78,23 +93,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
-    "id": "c9ac7d274febd468",
+    "id": "92f6d5ab7980343b",
     "type": "split",
     "children": [
       {
-        "id": "2868bf777a5a3599",
+        "id": "e346a7ac76a6f5d0",
         "type": "tabs",
         "children": [
           {
-            "id": "54290881d0c90e02",
+            "id": "fbeca05cd9b80e85",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/3 RNN&Transformer.md",
+                "file": "RL/4.动态规划.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,25 +119,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "3 RNN&Transformer 的反向链接列表"
+              "title": "4.动态规划 的反向链接列表"
             }
           },
           {
-            "id": "e1eb914a4e52b8dc",
+            "id": "5383e8881796a6e9",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/3 RNN&Transformer.md",
+                "file": "RL/4.动态规划.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "3 RNN&Transformer 的出链列表"
+              "title": "4.动态规划 的出链列表"
             }
           },
           {
-            "id": "91b221951914c194",
+            "id": "d42b5e9a53005cb0",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,35 +152,22 @@
             }
           },
           {
-            "id": "281eec1534a59dee",
-            "type": "leaf",
-            "state": {
-              "type": "all-properties",
-              "state": {
-                "sortOrder": "frequency",
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-archive",
-              "title": "添加笔记属性"
-            }
-          },
-          {
-            "id": "cd9bb9c4a2fa29b8",
+            "id": "7e2c8062c329ae34",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/3 RNN&Transformer.md",
+                "file": "1.机器学习的编程基础.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "3 RNN&Transformer 的大纲"
+              "title": "1.机器学习的编程基础 的大纲"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -174,17 +176,62 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "bases:创建新数据库": false
+      "command-palette:打开命令面板": false
     }
   },
-  "active": "c18b91e2bc793026",
+  "active": "1964420e3363186e",
   "lastOpenFiles": [
-    "images/82bca4fd-9ab5-4e03-a745-48b8ba47dfa2.png"
+    "_posts/日语/词汇",
+    "_posts/日语/语法/1 判断句：です.md",
+    "_posts/日语/语法/标日 语法总结.md",
+    "_posts/日语/语法/26 使役形.md",
+    "_posts/日语/语法/25 被动形.md",
+    "_posts/日语/语法/24 假定形：ば形.md",
+    "_posts/日语/语法/23 禁止形 な 命令形 え段.md",
+    "_posts/日语/语法/22 なる　变成，成为.md",
+    "_posts/日语/语法/21 必须与不必.md",
+    "_posts/日语/语法/20 条件形 たら.md",
+    "_posts/日语/语法/19 给与收 あげる、くれる｜貰う.md",
+    "_posts/日语/语法/18 比较级和最高级.md",
+    "_posts/日语/语法/17 意志形 お段+う、よう.md",
+    "_posts/日语/语法/16 可能形 え段+る，られる.md",
+    "_posts/日语/语法/15 定语从句.md",
+    "_posts/日语/语法/14 过去形：た形.md",
+    "_posts/日语/语法/13 辞書形：こと，前に.md",
+    "_posts/日语/语法/12 否定形：ない形.md",
+    "_posts/日语/语法/11 て形用于动词的连；并列词语的连接法.md",
+    "_posts/日语/语法/8-10 连用形：て形【进行时，请求】.md",
+    "_posts/日语/语法/7 疑问代词.md",
+    "_posts/日语/语法/6 形容词.md",
+    "_posts/日语/语法/4,5 敬体形：ます形.md",
+    "_posts/日语/语法/3 有：います、あります.md",
+    "_posts/日语/语法/2 指示代词：こそあど.md",
+    "_posts/日语/语法",
+    "_posts/日语",
+    "_posts/计算机视觉",
+    "CV/Vision with Deep Learning/4 Image Generation Intro.md",
+    "深度学习/attachments/Pasted image 20250814174154.png",
+    "深度学习/attachments/Pasted image 20250814173745.png",
+    "深度学习/attachments/Pasted image 20250813150018.png",
+    "深度学习/attachments/b3991550-b53d-4bcf-9d7e-6f895f666cc0.png",
+    "深度学习/attachments/79ad31d2-5f17-4307-81e0-c34c0977bf86.png",
+    "深度学习/attachments/095219db-0931-4300-bc40-ffd93ca2ff21.png",
+    "CV/Image Processing/attachments/1f9c02fc-f9a8-4ac4-9ed3-e8d301dd92a2.png",
+    "CV/Vision with Deep Learning/attachments/f860c041-0c54-4f2a-801e-8bd8274cf07a.png",
+    "CV/Vision with Deep Learning/attachments/1deca69a-13d4-44bd-9591-3ccae7a60298.png",
+    "CV/Vision with Deep Learning/attachments/2f4d6d3c-6642-4b9e-a57f-822b653eb4d8.png",
+    "CV/ppt/10 Multiview Stereo(1).pdf",
+    "CV/ppt/09 Structure from Motion.pdf",
+    "CV/ppt/08 Two-View Stereo.pdf",
+    "CV/ppt/07 Epipolar Geometry.pdf",
+    "CV/ppt/06 Camera Calibration.pdf",
+    "CV/ppt/05 Image Stitching.pdf",
+    "CV/ppt/04 Feature Detection.pdf"
   ]
 }

@@ -1,12 +1,214 @@
 extends includes/layout.pug
 
 block content
-  if theme.category_ui == 'index'
-    include ./includes/mixins/indexPostUI.pug
-    +indexPostUI
-  else
-    include ./includes/mixins/article-sort.pug
-    #category
-      .article-sort-title= _p('page.category') + ' - ' + page.category
-      +articleSort(page.posts)
-      include includes/pagination.pug
+  //- 1. 确定当前页面状态 (Root 还是 具体分类)
+  - const isRoot = page.path === 'categories/index.html' || !page.category
+  
+  //- 2. 获取当前分类对象及其层级信息
+  - let currentCatObj = null
+  - let hierarchy = []
+  
+  if !isRoot
+    - currentCatObj = site.categories.findOne({name: page.category})
+    //- 如果通过 name 找不到（罕见），尝试兜底
+    if currentCatObj
+      //- 构建层级链：当前 -> 父 -> 爷
+      - let temp = currentCatObj
+      - while (temp) {
+      -   hierarchy.unshift(temp)
+      -   if (temp.parent) {
+      -     temp = site.categories.findOne({_id: temp.parent})
+      -   } else {
+      -     temp = null
+      -   }
+      - }
+  
+  //- 3. 定义辅助函数：获取某分类下的“直接”子项
+  - function getDirectItems(catObj) {
+  -   let items = { subCats: [], directPosts: [] };
+  -   
+  -   if (!catObj) {
+  -     // Root 模式：获取所有无父级的分类
+  -     site.categories.forEach(c => {
+  -       if (!c.parent) {
+  -         items.subCats.push({ type: 'category', name: c.name, obj: c });
+  -       }
+  -     });
+  -     // Root 模式通常不直接展示文章，除非是未分类（这里略过）
+  -   } else {
+  -     // 具体分类模式
+  -     // A. 找子分类 (parent == catObj._id)
+  -     site.categories.forEach(c => {
+  -       if (c.parent === catObj._id) {
+  -         items.subCats.push({ type: 'category', name: c.name, obj: c });
+  -       }
+  -     });
+  -     
+  -     // B. 找直接文章 (文章的最后一个分类 == catObj)
+  -     catObj.posts.forEach(p => {
+  -       const postCats = p.categories;
+  -       // 确保 postCats 存在且最后一个分类是当前分类
+  -       if (postCats && postCats.length > 0) {
+  -         const lastCat = postCats.data[postCats.length - 1];
+  -         if (lastCat._id === catObj._id) {
+  -           items.directPosts.push({ type: 'post', name: p.title, obj: p });
+  -         }
+  -       }
+  -     });
+  -   }
+  -   return items;
+  - }
+
+  //- 4. 获取当前页面的列表数据
+  - const currentItems = getDirectItems(currentCatObj)
+  - let listItems = [...currentItems.subCats, ...currentItems.directPosts]
+
+  //- 5. 排序 (自然排序)
+  - function naturalSort(a, b) {
+  -   const nameA = a.name || "";
+  -   const nameB = b.name || "";
+  -   const matchA = nameA.match(/^(\d+)/);
+  -   const matchB = nameB.match(/^(\d+)/);
+  -   if (matchA && matchB) return parseInt(matchA[1]) - parseInt(matchB[1]);
+  -   return nameA.localeCompare(nameB, 'zh-CN', { numeric: true });
+  - }
+  - listItems.sort(naturalSort)
+
+  //- 6. 计算标题和返回链接
+  - let pageTitle = 'Notes / 小记'
+  - let backLink = null
+  
+  if !isRoot && hierarchy.length > 0
+    //- 标题：Notes / 小记 - 日语 / 语法
+    - pageTitle += ' - ' + hierarchy.map(c => c.name).join(' / ')
+    
+    //- 返回链接
+    if hierarchy.length > 1
+      //- 有父级，返回父级
+      - const parent = hierarchy[hierarchy.length - 2]
+      - backLink = url_for(parent.path)
+    else
+      //- 顶级分类，返回 Root
+      - backLink = url_for('/categories/')
+
+  #category
+    .article-sort-title= pageTitle
+    
+    if backLink
+      .category-back-button
+        a(href=backLink)
+          i.fas.fa-arrow-left
+          |  返回上级 / Back
+
+    .category-list-container
+      each item in listItems
+        if item.type === 'category'
+          //- 分类条目
+          details.category-list-item
+            summary
+              span.item-icon
+                i.fas.fa-folder
+              span.item-name= item.name
+              //- 递归获取子项以显示预览
+              - const subItems = getDirectItems(item.obj)
+              - const subCount = subItems.subCats.length + subItems.directPosts.length
+              span.item-count (#{subCount})
+              span.item-arrow
+                i.fas.fa-chevron-down
+            
+            .category-sub-content
+              - const subSubCats = subItems.subCats
+              - const subDirectPosts = subItems.directPosts
+              - subSubCats.sort(naturalSort)
+              - subDirectPosts.sort(naturalSort)
+              
+              //- 1. 显示下一级子分类
+              if subSubCats.length > 0
+                ul.sub-cat-list
+                  each subCat in subSubCats
+                    li
+                      a(href=url_for(subCat.obj.path))
+                        i.fas.fa-folder(style="margin-right:5px; color:#FF98D7")
+                        | #{subCat.name}
+
+              //- 2. 显示直接文章
+              if subDirectPosts.length > 0
+                ul.sub-post-list
+                  each p in subDirectPosts
+                    li
+                      a(href=url_for(p.obj.path))
+                        i.far.fa-file-alt(style="margin-right:5px; color:#999")
+                        | #{p.name}
+              
+              if subSubCats.length === 0 && subDirectPosts.length === 0
+                p.no-posts(style="color: #999; font-size: 0.9em;") (暂无直接内容)
+              
+              div.enter-category
+                a(href=url_for(item.obj.path)) 进入 #{item.name} 详情页 <i class="fas fa-arrow-right"></i>
+
+        else
+          //- 文章条目
+          div.category-list-item.post-item
+            a(href=url_for(item.obj.path))
+              span.item-icon
+                i.far.fa-file-alt
+              span.item-name= item.name
+
+    style.
+      .category-back-button { margin-bottom: 20px; }
+      .category-back-button a {
+        display: inline-block; padding: 8px 16px; 
+        background: var(--btn-bg); color: var(--btn-color); 
+        border-radius: 8px; text-decoration: none; transition: all 0.3s;
+      }
+      .category-back-button a:hover { background: var(--btn-hover-color); }
+      
+      .category-list-container { display: flex; flex-direction: column; gap: 15px; }
+      
+      .category-list-item {
+        background: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s;
+        border: 1px solid var(--card-border, #eee);
+        overflow: hidden;
+      }
+      .category-list-item:hover { box-shadow: var(--card-hover-shadow); transform: translateY(-2px); }
+      
+      .category-list-item summary {
+        display: flex; align-items: center;
+        padding: 15px 20px;
+        cursor: pointer;
+        list-style: none;
+        position: relative;
+      }
+      .category-list-item summary::-webkit-details-marker { display: none; }
+      
+      .item-icon { margin-right: 15px; font-size: 1.2em; color: #49b1f5; }
+      .item-name { flex-grow: 1; font-weight: bold; font-size: 1.1em; }
+      .item-count { margin-right: 15px; color: #999; font-size: 0.9em; }
+      .item-arrow { transition: transform 0.3s; color: #ccc; }
+      
+      details[open] .item-arrow { transform: rotate(180deg); }
+      
+      .category-sub-content {
+        padding: 0 20px 20px 55px;
+        border-top: 1px solid #f0f0f0;
+        background: var(--card-bg);
+      }
+      
+      .sub-cat-list, .sub-post-list { list-style: none; padding: 0; margin: 10px 0; }
+      .sub-cat-list li, .sub-post-list li { margin: 8px 0; }
+      .sub-cat-list li a, .sub-post-list li a { text-decoration: none; color: var(--font-color); transition: color 0.2s; display: flex; align-items: center; }
+      .sub-cat-list li a:hover, .sub-post-list li a:hover { color: #49b1f5; }
+      
+      .enter-category { margin-top: 15px; font-size: 0.9em; border-top: 1px dashed #eee; padding-top: 10px; }
+      .enter-category a { color: #49b1f5; text-decoration: none; }
+      
+      .post-item a {
+        display: flex; align-items: center;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: var(--font-color);
+      }
+      .post-item .item-icon { color: #999; }
