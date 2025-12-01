@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>4 Image Generation Intro | Blog de ffffurina</title><meta name="author" content="ffffurina,ffffurina7@gmail.com"><meta name="copyright" content="ffffurina"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="1. 自回归模型 (Autoregressive Models)1.1 核心思想自回归模型将联合概率分布 $p(x)$ 分解为一系列条件概率的乘积。假设图像 $x$ 由序列 $(x_1, x_2, …, x_T)$ 组成（例如按光栅扫描顺序的像素），则：  p(x) &#x3D; \prod_{t&#x3D;1}^{T} p(x_t | x_1, ..., x_{t-1})1.2 训练与生成 训练：通过最大似然估计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4 Image Generation Intro">
+<meta property="og:url" content="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/index.html">
+<meta property="og:site_name" content="Blog de ffffurina">
+<meta property="og:description" content="1. 自回归模型 (Autoregressive Models)1.1 核心思想自回归模型将联合概率分布 $p(x)$ 分解为一系列条件概率的乘积。假设图像 $x$ 由序列 $(x_1, x_2, …, x_T)$ 组成（例如按光栅扫描顺序的像素），则：  p(x) &#x3D; \prod_{t&#x3D;1}^{T} p(x_t | x_1, ..., x_{t-1})1.2 训练与生成 训练：通过最大似然估计">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ffffurina.top/img/avatar.jpg">
+<meta property="article:published_time" content="2025-12-01T04:55:31.000Z">
+<meta property="article:modified_time" content="2025-12-01T05:56:15.809Z">
+<meta property="article:author" content="ffffurina">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ffffurina.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "4 Image Generation Intro",
+  "url": "https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/",
+  "image": "https://ffffurina.top/img/avatar.jpg",
+  "datePublished": "2025-12-01T04:55:31.000Z",
+  "dateModified": "2025-12-01T05:56:15.809Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ffffurina",
+      "url": "https://ffffurina.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '4 Image Generation Intro',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Blog de ffffurina" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blog de ffffurina</span></a><a class="nav-page-title" href="/"><span class="site-name">4 Image Generation Intro</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">4 Image Generation Intro</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-01T04:55:31.000Z" title="发表于 2025-12-01 12:55:31">2025-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-01T05:56:15.809Z" title="更新于 2025-12-01 13:56:15">2025-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="1-自回归模型-Autoregressive-Models"><a href="#1-自回归模型-Autoregressive-Models" class="headerlink" title="1. 自回归模型 (Autoregressive Models)"></a>1. 自回归模型 (Autoregressive Models)</h2><h3 id="1-1-核心思想"><a href="#1-1-核心思想" class="headerlink" title="1.1 核心思想"></a>1.1 核心思想</h3><p>自回归模型将联合概率分布 $p(x)$ 分解为一系列条件概率的乘积。假设图像 $x$ 由序列 $(x_1, x_2, …, x_T)$ 组成（例如按光栅扫描顺序的像素），则：</p>
+<script type="math/tex; mode=display">
+p(x) = \prod_{t=1}^{T} p(x_t | x_1, ..., x_{t-1})</script><h3 id="1-2-训练与生成"><a href="#1-2-训练与生成" class="headerlink" title="1.2 训练与生成"></a>1.2 训练与生成</h3><ul>
+<li><strong>训练</strong>：通过最大似然估计 (MLE) 优化参数 $W$，F即最大化 $\sum_i \log p(x^{(i)})$. </li>
+<li><strong>生成</strong>：是一个串行过程。先生成 $x_1$，再根据 $x_1$ 生成 $x_2$，依此类推。</li>
+</ul>
+<h3 id="1-3-经典模型"><a href="#1-3-经典模型" class="headerlink" title="1.3 经典模型"></a>1.3 经典模型</h3><ul>
+<li><strong>PixelRNN / PixelCNN</strong>：逐像素生成图像。利用 RNN (LSTM) 或 掩膜卷积 (Masked CNN) 来建模长程依赖。输出层通常使用 Softmax 在 $[0, 255]$ 的离散空间上预测像素值。 </li>
+<li><strong>ImageGPT</strong>：基于 Transformer 的自回归模型。将图像像素序列化后输入 GPT，利用注意力机制捕捉全局依赖。 </li>
+</ul>
+<hr>
+<h2 id="2-变分自编码器-Variational-Autoencoder-VAE"><a href="#2-变分自编码器-Variational-Autoencoder-VAE" class="headerlink" title="2. 变分自编码器 (Variational Autoencoder, VAE)"></a>2. 变分自编码器 (Variational Autoencoder, VAE)</h2><h3 id="2-1-自编码器的局限"><a href="#2-1-自编码器的局限" class="headerlink" title="2.1 自编码器的局限"></a>2.1 自编码器的局限</h3><p>普通的自编码器 (Autoencoder) 旨在通过 Encoder压缩数据 ($z=e(x)$) 并通过 Decoder 重建数据 ($\hat{x}=d(z)$) 。但它不是生成模型，因为其潜空间 (Latent Space) 通常是不连续且无规则的，随机采样 $z$ 无法生成有意义的图像。</p>
+<h3 id="2-2-VAE-的改进"><a href="#2-2-VAE-的改进" class="headerlink" title="2.2 VAE 的改进"></a>2.2 VAE 的改进</h3><p>VAE 强制潜空间服从特定分布（通常是标准正态分布 $\mathcal{N}(0, I)$）。</p>
+<ul>
+<li><strong>Encoder</strong>：预测分布的参数（均值 $\mu_x$ 和方差 $\sigma_x$），而不是直接预测 $z$。</li>
+<li><strong>重参数化技巧 (Reparameterization Trick)</strong>：为了使采样过程可导，引入噪声 $\epsilon \sim \mathcal{N}(0, I)$，令：</li>
+</ul>
+<script type="math/tex; mode=display">
+z = \mu_x + \sigma_x \cdot \epsilon</script><p>这样梯度可以反向传播回 $\mu_x$ 和 $\sigma_x$ 。</p>
+<h3 id="2-3-损失函数"><a href="#2-3-损失函数" class="headerlink" title="2.3 损失函数"></a>2.3 损失函数</h3><p>VAE 的损失函数由<strong>重建损失</strong>和<strong>KL 散度</strong>组成（推导自 ELBO）：</p>
+<script type="math/tex; mode=display">
+\mathcal{L} = \|\mathbf{x} - d(z)\|^2 + \lambda \cdot D_{KL}\big(\mathcal{N}(\mu_x, \sigma_x) \| \mathcal{N}(0, I)\big)</script><p>其中 KL 散度项迫使潜变量分布逼近标准正态分布，防止模型通过过拟合均值和极小方差来退化成普通 AE。</p>
+<hr>
+<h2 id="3-生成对抗网络-Generative-Adversarial-Network-GAN"><a href="#3-生成对抗网络-Generative-Adversarial-Network-GAN" class="headerlink" title="3. 生成对抗网络 (Generative Adversarial Network, GAN)"></a>3. 生成对抗网络 (Generative Adversarial Network, GAN)</h2><h3 id="3-1-博弈论框架"><a href="#3-1-博弈论框架" class="headerlink" title="3.1 博弈论框架"></a>3.1 博弈论框架</h3><p>GAN 由两个网络组成，进行极小极大 (Minimax) 博弈 ：</p>
+<ul>
+<li><strong>生成器 (G)</strong>：从随机噪声 $z \sim p_z(z)$ 映射到数据空间，试图生成逼真的样本 $G(z)$ 来欺骗判别器。</li>
+<li><strong>判别器 (D)</strong>：试图区分真实样本 $x \sim p_{data}(x)$ 和生成样本 $G(z)$。<h3 id="3-2-目标函数"><a href="#3-2-目标函数" class="headerlink" title="3.2 目标函数"></a>3.2 目标函数</h3>GAN 的优化目标是：</li>
+</ul>
+<script type="math/tex; mode=display">
+\min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{data}(x)}[\log D(x)] + \mathbb{E}_{z \sim p_z(z)}[\log(1 - D(G(z)))]</script><ul>
+<li><strong>训练 D</strong>：最大化分辨能力。</li>
+<li><strong>训练 G</strong>：最小化 $\log(1 - D(G(z)))$，或者在实践中通常最大化 $\log D(G(z))$ 以缓解梯度消失问题。</li>
+</ul>
+<h3 id="3-3-典型架构：DCGAN"><a href="#3-3-典型架构：DCGAN" class="headerlink" title="3.3 典型架构：DCGAN"></a>3.3 典型架构：DCGAN</h3><p>深度卷积 GAN (Deep Convolutional GAN) 确立了 GAN 在图像生成中的标准架构，例如使用转置卷积 (Transposed Convolution / Deconvolution) 进行上采样，去除全连接层等 。</p>
+<h3 id="3-4-StyleGAN"><a href="#3-4-StyleGAN" class="headerlink" title="3.4 StyleGAN"></a>3.4 StyleGAN</h3><p>NVIDIA 提出的 StyleGAN 引入了 Mapping Network 将噪声 $z$ 映射为解耦的 $w$ 空间，并使用 AdaIN (Adaptive Instance Normalization) 将风格信息注入到生成过程的各个层级，实现了极高质量和可控的人脸生成。</p>
+<hr>
+<h2 id="4-扩散模型-Diffusion-Models"><a href="#4-扩散模型-Diffusion-Models" class="headerlink" title="4. 扩散模型 (Diffusion Models)"></a>4. 扩散模型 (Diffusion Models)</h2><p>这是目前最前沿的生成模型，也是本讲的重点。</p>
+<h3 id="4-1-基本原理"><a href="#4-1-基本原理" class="headerlink" title="4.1 基本原理"></a>4.1 基本原理</h3><p>扩散模型包含两个过程：</p>
+<ol>
+<li><strong>前向过程 (Forward Process)</strong>：逐步向数据添加高斯噪声，直到变成纯噪声。这是一个马尔可夫链。</li>
+<li><strong>逆向过程 (Inverse Process)</strong>：训练一个神经网络去逐步去除噪声，从纯噪声中恢复出数据。</li>
+</ol>
+<h3 id="4-2-前向过程-加噪"><a href="#4-2-前向过程-加噪" class="headerlink" title="4.2 前向过程 (加噪)"></a>4.2 前向过程 (加噪)</h3><p>给定真实图像 $x_0$，逐步添加高斯噪声得到 $x_1, …, x_T$。条件概率定义为：</p>
+<script type="math/tex; mode=display">
+q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{\alpha_t} x_{t-1}, (1 - \alpha_t) \mathbf{I})</script><p>其中 $\alpha_t$ 是预定义的方差调度参数。<br>利用高斯分布的性质，可以直接从 $x_0$ 采样得到任意时刻 $t$ 的 $x_t$ ：</p>
+<script type="math/tex; mode=display">
+q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) \mathbf{I})</script><p>其中 $\bar{\alpha}<em>t = \prod</em>{i=1}^t \alpha_i$。这意味着 $x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon$，其中 $\epsilon \sim \mathcal{N}(0, \mathbf{I})$。</p>
+<h3 id="4-3-逆向过程-去噪"><a href="#4-3-逆向过程-去噪" class="headerlink" title="4.3 逆向过程 (去噪)"></a>4.3 逆向过程 (去噪)</h3><p>我们要学习逆向转移分布 $p<em>\theta(x</em>{t-1} | x_t)$。当步长足够小时，逆向过程也可以近似为高斯分布：</p>
+<script type="math/tex; mode=display">
+p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))</script><p><strong>训练目标</strong>：实际上是训练一个噪声预测网络 $\epsilon_\theta(x_t, t)$ 来预测加入的噪声 $\epsilon$。<br>简化后的损失函数为 MSE：</p>
+<script type="math/tex; mode=display">
+L_{\text{simple}} = \mathbb{E}_{t, x_0, \epsilon} \left[ \| \epsilon - \epsilon_\theta(\sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, t) \|^2 \right]</script><h3 id="4-4-采样过程"><a href="#4-4-采样过程" class="headerlink" title="4.4 采样过程"></a>4.4 采样过程</h3><p>从标准正态分布 $x_T \sim \mathcal{N}(0, \mathbf{I})$ 开始，迭代去噪：</p>
+<script type="math/tex; mode=display">
+x_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) \right) + \sigma_t z</script><p>其中 $z \sim \mathcal{N}(0, \mathbf{I})$ 是随机噪声项（当 $t&gt;1$ 时加入）。</p>
+<h3 id="4-5-潜在扩散模型-Latent-Diffusion-Models-Stable-Diffusion"><a href="#4-5-潜在扩散模型-Latent-Diffusion-Models-Stable-Diffusion" class="headerlink" title="4.5 潜在扩散模型 (Latent Diffusion Models / Stable Diffusion)"></a>4.5 潜在扩散模型 (Latent Diffusion Models / Stable Diffusion)</h3><p>为了降低计算成本，LDM 将扩散过程移至预训练的自动编码器 (VQ-GAN 或 KL-AE) 的<strong>潜空间 (Latent Space)</strong> 中进行。</p>
+<ul>
+<li><strong>流程</strong>：Pixel Space $\xrightarrow{\text{Encoder}}$ Latent Space $\xrightarrow{\text{Diffusion}}$ Latent Space $\xrightarrow{\text{Decoder}}$ Pixel Space。</li>
+<li><strong>条件生成</strong>：通过 Cross-Attention 机制引入文本 (CLIP text encoder) 或语义图作为条件控制生成。</li>
+</ul>
+<h3 id="4-6-总结对比"><a href="#4-6-总结对比" class="headerlink" title="4.6 总结对比"></a>4.6 总结对比</h3><ul>
+<li><strong>GAN</strong>：采样快，但训练不稳定 (Mode Collapse)，难以覆盖整个分布。</li>
+<li><strong>VAE</strong>：训练稳定，能覆盖分布，但生成的图像通常较模糊。</li>
+<li><strong>Diffusion</strong>：生成质量极高，训练稳定，能覆盖分布，主要缺点是采样速度慢（需要多步迭代）。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ffffurina.top">ffffurina</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/">https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ffffurina.top" target="_blank">Blog de ffffurina</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/" title="3 RNN&amp;Transformer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">3 RNN&Transformer</div></div><div class="info-2"><div class="info-item-1">这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 Transformer。  第一阶段：序列建模与 RNN (Recurrent Neural Networks)在 CNN 中，我们处理的是固定大小的输入（如 $224 \times 224$ 的图像）。但在现实世界中，很多数据是变长的序列（如文本、语音、视频流）。 1. RNN 的核心思想RNN 的设计初衷是为了处理序列数据。它的核心在于拥有一个“内部状态” (Internal State)，即隐藏层 $h_t$。  递推公式：$ht = f_W(h{t-1}, x_t)$ 。 $h_t$：当前时刻的隐藏状态。 $h_{t-1}$：上一时刻的隐藏状态（记忆）。 $x_t$：当前时刻的输入。 $W$：权重参数。关键点：在所有时间步中，权重 $W$ 是共享的 。 这与 CNN 在空间上共享权重（卷积核）有异曲同工之妙，RNN 是在时间上共享权重。    2. 应用模式RNN 极其灵活，PPT 展示了多种输入输出模式：  One-t...</div></div></div></a><a class="pagination-related" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/" title="6 Object Detection"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">6 Object Detection</div></div><div class="info-2"><div class="info-item-1">1. 任务定义与挑战目标检测的任务不仅是判断图像中有什么（分类），还要确定它们在哪里（定位）。 1.1 任务定义 输入：单张 RGB 图像。 输出：一组检测到的物体 ${ (c_i, b_i) }$，其中： $c_i$ 是类别标签（如“猫”、“车”）。 $b_i$ 是边界框 (Bounding Box)，通常表示为 $(x, y, w, h)$，即中心坐标及宽高。    1.2 核心挑战 输出数量不固定：图像中可能包含 0 到任意多个物体，无法像分类任务那样输出固定维度的向量。 多任务学习：需要同时进行分类（离散）和回归（连续）。 尺度变化：物体在图像中的尺寸差异巨大。  1.3 评估指标 IoU (Intersection over Union)：交并比，用于衡量预测框与真实框 (Ground Truth) 的重叠程度。   \text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}} mAP (mean Average Precision)：各类别的平均精度 (AP) 的均值，是衡量检测器性能的黄金标准。  ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ffffurina</div><div class="author-info-description">超越技术，丈量世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ffffurina"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ffffurina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ffffurina7@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B-Autoregressive-Models"><span class="toc-number">1.</span> <span class="toc-text">1. 自回归模型 (Autoregressive Models)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 训练与生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%BB%8F%E5%85%B8%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 经典模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8-Variational-Autoencoder-VAE"><span class="toc-number">2.</span> <span class="toc-text">2. 变分自编码器 (Variational Autoencoder, VAE)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 自编码器的局限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-VAE-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 VAE 的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 损失函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C-Generative-Adversarial-Network-GAN"><span class="toc-number">3.</span> <span class="toc-text">3. 生成对抗网络 (Generative Adversarial Network, GAN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8D%9A%E5%BC%88%E8%AE%BA%E6%A1%86%E6%9E%B6"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 博弈论框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 目标函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%85%B8%E5%9E%8B%E6%9E%B6%E6%9E%84%EF%BC%9ADCGAN"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 典型架构：DCGAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-StyleGAN"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 StyleGAN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B-Diffusion-Models"><span class="toc-number">4.</span> <span class="toc-text">4. 扩散模型 (Diffusion Models)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%89%8D%E5%90%91%E8%BF%87%E7%A8%8B-%E5%8A%A0%E5%99%AA"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 前向过程 (加噪)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%80%86%E5%90%91%E8%BF%87%E7%A8%8B-%E5%8E%BB%E5%99%AA"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 逆向过程 (去噪)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 采样过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E6%BD%9C%E5%9C%A8%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B-Latent-Diffusion-Models-Stable-Diffusion"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 潜在扩散模型 (Latent Diffusion Models &#x2F; Stable Diffusion)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 总结对比</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/24%20%E5%81%87%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%B0%E5%BD%A2/" title="24 假定形：ば形">24 假定形：ば形</a><time datetime="2025-12-01T05:02:38.000Z" title="发表于 2025-12-01 13:02:38">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/" title="3 RNN&amp;Transformer">3 RNN&amp;Transformer</a><time datetime="2025-12-01T04:55:36.000Z" title="发表于 2025-12-01 12:55:36">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/" title="4 Image Generation Intro">4 Image Generation Intro</a><time datetime="2025-12-01T04:55:31.000Z" title="发表于 2025-12-01 12:55:31">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/" title="6 Object Detection">6 Object Detection</a><time datetime="2025-12-01T04:55:11.000Z" title="发表于 2025-12-01 12:55:11">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/" title="1. CNN">1. CNN</a><time datetime="2025-12-01T04:54:29.000Z" title="发表于 2025-12-01 12:54:29">2025-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By ffffurina</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="/"></script></div></body></html>

@@ -6,7 +6,7 @@
   <link href="https://ffffurina.top/atom.xml" rel="self"/>
   
   <link href="https://ffffurina.top/"/>
-  <updated>2025-11-30T14:31:23.724Z</updated>
+  <updated>2025-12-01T05:56:15.810Z</updated>
   <id>https://ffffurina.top/</id>
   
   <author>
@@ -17,36 +17,385 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>24 假定形：ば形</title>
+    <link href="https://ffffurina.top/2025/12/01/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/24%20%E5%81%87%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%B0%E5%BD%A2/"/>
+    <id>https://ffffurina.top/2025/12/01/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/24%20%E5%81%87%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%B0%E5%BD%A2/</id>
+    <published>2025-12-01T05:02:38.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;还记得我们在 Lesson 20 学过一个“万能”的 &lt;code&gt;～たら (tara)&lt;/code&gt; 吗？既然有了万能的 &lt;code&gt;tara&lt;/code&gt;，为什么还需要 &lt;code&gt;ba&lt;/code&gt;？&lt;br&gt;如果说 &lt;code&gt;tara&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>3 RNN&amp;Transformer</title>
+    <link href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/"/>
+    <id>https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/</id>
+    <published>2025-12-01T04:55:36.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 &lt;strong&gt;Transformer&lt;/strong&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>4 Image Generation Intro</title>
+    <link href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/"/>
+    <id>https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/</id>
+    <published>2025-12-01T04:55:31.000Z</published>
+    <updated>2025-12-01T05:56:15.809Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-自回归模型-Autoregressive-Models&quot;&gt;&lt;a href=&quot;#1-自回归模型-Autoregressive-Models&quot; class=&quot;headerlink&quot; title=&quot;1. 自回归模型 (Autoregressive</summary>
+        
+      
+    
+    
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>6 Object Detection</title>
-    <link href="https://ffffurina.top/2025/11/30/6%20Object%20Detection/"/>
-    <id>https://ffffurina.top/2025/11/30/6%20Object%20Detection/</id>
-    <published>2025-11-30T06:35:20.000Z</published>
-    <updated>2025-11-30T14:31:23.724Z</updated>
+    <link href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/"/>
+    <id>https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/</id>
+    <published>2025-12-01T04:55:11.000Z</published>
+    <updated>2025-12-01T05:56:15.809Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Lecture-22-Object-Detection-目标检测&quot;&gt;&lt;a href=&quot;#Lecture-22-Object-Detection-目标检测&quot; class=&quot;headerlink&quot; title=&quot;Lecture 22: Object</summary>
+    <summary type="html">&lt;h2 id=&quot;1-任务定义与挑战&quot;&gt;&lt;a href=&quot;#1-任务定义与挑战&quot; class=&quot;headerlink&quot; title=&quot;1. 任务定义与挑战&quot;&gt;&lt;/a&gt;1.</summary>
         
       
     
     
     
-    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
-    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1. CNN</title>
+    <link href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/"/>
+    <id>https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/</id>
+    <published>2025-12-01T04:54:29.000Z</published>
+    <updated>2025-12-01T05:56:15.809Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一-从全连接层到卷积：&quot;&gt;&lt;a href=&quot;#一-从全连接层到卷积：&quot; class=&quot;headerlink&quot; title=&quot;一 从全连接层到卷积：&quot;&gt;&lt;/a&gt;一 从全连接层到卷积：&lt;/h2&gt;&lt;h3 id=&quot;1-为什么MLP的全连接层不适用于图像分类任务？&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>26 使役形</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/26%20%E4%BD%BF%E5%BD%B9%E5%BD%A2/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/26%20%E4%BD%BF%E5%BD%B9%E5%BD%A2/</id>
+    <published>2025-11-29T09:33:34.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;好，我们继续完成动词变形的拼图。首先，我们来 Check 一下 &lt;strong&gt;Lesson 25 (被动形)&lt;/strong&gt; 的作业，看看你的“受害视角”切换得是否顺畅。&lt;/p&gt;
+&lt;h3 id=&quot;✅-Lesson-25-习题参考答案-Debug&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>25 被动形</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/25%20%E8%A2%AB%E5%8A%A8%E5%BD%A2/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/25%20%E8%A2%AB%E5%8A%A8%E5%BD%A2/</id>
+    <published>2025-11-29T09:26:50.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;好的，我们继续按照“动词全制霸”的路线图推进。&lt;/p&gt;
+&lt;p&gt;首先，让我们快速 Debug 一下 &lt;strong&gt;Lesson 24 (ば形/假定形)&lt;/strong&gt; 的代码。这一步是为了确保你的逻辑开关（Logic Gates）工作正常。&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>21 必须与不必</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/21%20%E5%BF%85%E9%A1%BB%E4%B8%8E%E4%B8%8D%E5%BF%85/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/21%20%E5%BF%85%E9%A1%BB%E4%B8%8E%E4%B8%8D%E5%BF%85/</id>
+    <published>2025-11-29T09:17:59.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-21-强制与义务-——-“双重否定”的逻辑&quot;&gt;&lt;a href=&quot;#Lesson-21-强制与义务-——-“双重否定”的逻辑&quot; class=&quot;headerlink&quot; title=&quot;Lesson 21: 强制与义务 ——</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>23 禁止形 な 命令形 え段</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/23%20%E7%A6%81%E6%AD%A2%E5%BD%A2%20%E3%81%AA%20%E5%91%BD%E4%BB%A4%E5%BD%A2%20%E3%81%88%E6%AE%B5/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/23%20%E7%A6%81%E6%AD%A2%E5%BD%A2%20%E3%81%AA%20%E5%91%BD%E4%BB%A4%E5%BD%A2%20%E3%81%88%E6%AE%B5/</id>
+    <published>2025-11-29T08:57:27.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;🔍-动词变形进度盘点-Status-Check&quot;&gt;&lt;a href=&quot;#🔍-动词变形进度盘点-Status-Check&quot; class=&quot;headerlink&quot; title=&quot;🔍 动词变形进度盘点 (Status Check)&quot;&gt;&lt;/a&gt;🔍 动词变形进度盘点</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>22 なる　变成，成为</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/22%20%E3%81%AA%E3%82%8B%E3%80%80%E5%8F%98%E6%88%90%EF%BC%8C%E6%88%90%E4%B8%BA/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/22%20%E3%81%AA%E3%82%8B%E3%80%80%E5%8F%98%E6%88%90%EF%BC%8C%E6%88%90%E4%B8%BA/</id>
+    <published>2025-11-29T08:23:55.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h3 id=&quot;Lesson-22-状态的跃迁-——-“变化”的算法-Becoming&quot;&gt;&lt;a href=&quot;#Lesson-22-状态的跃迁-——-“变化”的算法-Becoming&quot; class=&quot;headerlink&quot; title=&quot;Lesson 22: 状态的跃迁</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>20 条件形 たら</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/20%20%E6%9D%A1%E4%BB%B6%E5%BD%A2%20%E3%81%9F%E3%82%89/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/20%20%E6%9D%A1%E4%BB%B6%E5%BD%A2%20%E3%81%9F%E3%82%89/</id>
+    <published>2025-11-29T08:01:53.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-20-假定与条件-——-万能的“～たら”-Tara&quot;&gt;&lt;a href=&quot;#Lesson-20-假定与条件-——-万能的“～たら”-Tara&quot; class=&quot;headerlink&quot; title=&quot;Lesson 20: 假定与条件 ——</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>19 给与收 あげる、くれる｜貰う</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/19%20%E7%BB%99%E4%B8%8E%E6%94%B6%20%E3%81%82%E3%81%92%E3%82%8B%E3%80%81%E3%81%8F%E3%82%8C%E3%82%8B%EF%BD%9C%E8%B2%B0%E3%81%86/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/19%20%E7%BB%99%E4%B8%8E%E6%94%B6%20%E3%81%82%E3%81%92%E3%82%8B%E3%80%81%E3%81%8F%E3%82%8C%E3%82%8B%EF%BD%9C%E8%B2%B0%E3%81%86/</id>
+    <published>2025-11-29T06:46:35.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-19-物品的数据流-——-授受关系-Giving-amp-Receiving-Part-1&quot;&gt;&lt;a href=&quot;#Lesson-19-物品的数据流-——-授受关系-Giving-amp-Receiving-Part-1&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>18 比较级和最高级</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/18%20%E6%AF%94%E8%BE%83%E7%BA%A7%E5%92%8C%E6%9C%80%E9%AB%98%E7%BA%A7/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/18%20%E6%AF%94%E8%BE%83%E7%BA%A7%E5%92%8C%E6%9C%80%E9%AB%98%E7%BA%A7/</id>
+    <published>2025-11-29T06:35:50.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-18-排序算法-——-比较级与最高级&quot;&gt;&lt;a href=&quot;#Lesson-18-排序算法-——-比较级与最高级&quot; class=&quot;headerlink&quot; title=&quot;Lesson 18: 排序算法 —— 比较级与最高级&quot;&gt;&lt;/a&gt;Lesson</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>17 意志形 お段+う、よう</title>
+    <link href="https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/17%20%E6%84%8F%E5%BF%97%E5%BD%A2%20%E3%81%8A%E6%AE%B5+%E3%81%86%E3%80%81%E3%82%88%E3%81%86/"/>
+    <id>https://ffffurina.top/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/17%20%E6%84%8F%E5%BF%97%E5%BD%A2%20%E3%81%8A%E6%AE%B5+%E3%81%86%E3%80%81%E3%82%88%E3%81%86/</id>
+    <published>2025-11-29T06:15:36.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-17-意志的算法-——-意向形-Volitional-Form&quot;&gt;&lt;a href=&quot;#Lesson-17-意志的算法-——-意向形-Volitional-Form&quot; class=&quot;headerlink&quot; title=&quot;Lesson 17:</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>3 有：います、あります</title>
+    <link href="https://ffffurina.top/2025/11/28/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/3%20%E6%9C%89%EF%BC%9A%E3%81%84%E3%81%BE%E3%81%99%E3%80%81%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/"/>
+    <id>https://ffffurina.top/2025/11/28/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/3%20%E6%9C%89%EF%BC%9A%E3%81%84%E3%81%BE%E3%81%99%E3%80%81%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99/</id>
+    <published>2025-11-28T03:32:57.000Z</published>
+    <updated>2025-12-01T05:56:15.811Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h3 id=&quot;Lesson-3-存在句的逻辑-——-“有”生命的二元分类&quot;&gt;&lt;a href=&quot;#Lesson-3-存在句的逻辑-——-“有”生命的二元分类&quot; class=&quot;headerlink&quot; title=&quot;Lesson 3: 存在句的逻辑 ——</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
     
     
   </entry>
   
   <entry>
     <title>5 Image Segmentation</title>
-    <link href="https://ffffurina.top/2025/11/27/5%20Image%20Segmentation/"/>
-    <id>https://ffffurina.top/2025/11/27/5%20Image%20Segmentation/</id>
+    <link href="https://ffffurina.top/2025/11/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/5%20Image%20Segmentation/"/>
+    <id>https://ffffurina.top/2025/11/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/5%20Image%20Segmentation/</id>
     <published>2025-11-27T07:47:33.000Z</published>
-    <updated>2025-11-30T14:31:23.723Z</updated>
+    <updated>2025-12-01T05:56:15.809Z</updated>
     
     
       
@@ -59,71 +408,17 @@
     
     
     
-    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
-    
-    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>4 Image Generation Intro</title>
-    <link href="https://ffffurina.top/2025/11/27/4%20Image%20Generation%20Intro/"/>
-    <id>https://ffffurina.top/2025/11/27/4%20Image%20Generation%20Intro/</id>
-    <published>2025-11-27T06:35:16.000Z</published>
-    <updated>2025-11-30T14:31:23.719Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;本讲涵盖了深度生成模型的四大主流范式：自回归模型 (Autoregressive Models)、变分自编码器 (VAE)、生成对抗网络 (GAN) 以及扩散模型 (Diffusion Models)。&lt;br&gt;可以参考深度学习高级话题[]&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1</summary>
-        
-      
-    
-    
-    
-    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
-    
-    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>3 RNN&amp;Transformer</title>
-    <link href="https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/"/>
-    <id>https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/</id>
-    <published>2025-11-27T06:11:06.000Z</published>
-    <updated>2025-12-01T04:28:56.892Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的</summary>
-        
-      
-    
-    
-    
-    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
-    
-    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
     
   </entry>
   
   <entry>
     <title>2 Visualization and Understanding -- breaking down CNN gradients and parameters</title>
-    <link href="https://ffffurina.top/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/"/>
-    <id>https://ffffurina.top/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/</id>
+    <link href="https://ffffurina.top/2025/11/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/"/>
+    <id>https://ffffurina.top/2025/11/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/</id>
     <published>2025-11-27T05:31:46.000Z</published>
-    <updated>2025-11-30T14:31:23.714Z</updated>
+    <updated>2025-12-01T05:56:15.810Z</updated>
     
     
       
@@ -138,9 +433,84 @@
     
     
     
-    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
-    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16 可能形 え段+る，られる</title>
+    <link href="https://ffffurina.top/2025/11/19/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/16%20%E5%8F%AF%E8%83%BD%E5%BD%A2%20%E3%81%88%E6%AE%B5+%E3%82%8B%EF%BC%8C%E3%82%89%E3%82%8C%E3%82%8B/"/>
+    <id>https://ffffurina.top/2025/11/19/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/16%20%E5%8F%AF%E8%83%BD%E5%BD%A2%20%E3%81%88%E6%AE%B5+%E3%82%8B%EF%BC%8C%E3%82%89%E3%82%8C%E3%82%8B/</id>
+    <published>2025-11-19T13:10:29.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Lesson-16-能力的“变身”-——-可能态-Potential-Form&quot;&gt;&lt;a href=&quot;#Lesson-16-能力的“变身”-——-可能态-Potential-Form&quot; class=&quot;headerlink&quot; title=&quot;Lesson 16:</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>14 过去形：た形</title>
+    <link href="https://ffffurina.top/2025/11/19/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/14%20%E8%BF%87%E5%8E%BB%E5%BD%A2%EF%BC%9A%E3%81%9F%E5%BD%A2/"/>
+    <id>https://ffffurina.top/2025/11/19/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/14%20%E8%BF%87%E5%8E%BB%E5%BD%A2%EF%BC%9A%E3%81%9F%E5%BD%A2/</id>
+    <published>2025-11-19T11:56:00.000Z</published>
+    <updated>2025-12-01T05:56:15.809Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h3 id=&quot;Lesson-14-动词的过去式-——-“Ta”形-た形-与经验值&quot;&gt;&lt;a href=&quot;#Lesson-14-动词的过去式-——-“Ta”形-た形-与经验值&quot; class=&quot;headerlink&quot; title=&quot;Lesson 14: 动词的过去式 ——</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>6 形容词</title>
+    <link href="https://ffffurina.top/2025/11/18/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/6%20%E5%BD%A2%E5%AE%B9%E8%AF%8D/"/>
+    <id>https://ffffurina.top/2025/11/18/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/6%20%E5%BD%A2%E5%AE%B9%E8%AF%8D/</id>
+    <published>2025-11-18T11:27:48.000Z</published>
+    <updated>2025-12-01T05:56:15.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;hr&gt;
+&lt;h3 id=&quot;Lesson-6-形容词的双轨制-——-“i”-与-“na”-的类继承&quot;&gt;&lt;a href=&quot;#Lesson-6-形容词的双轨制-——-“i”-与-“na”-的类继承&quot; class=&quot;headerlink&quot; title=&quot;Lesson 6:</summary>
+        
+      
+    
+    
+    
+    <category term="日语" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/"/>
+    
+    <category term="语法" scheme="https://ffffurina.top/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"/>
     
     
   </entry>

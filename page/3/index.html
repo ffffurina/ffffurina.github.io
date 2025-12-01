@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Blog de ffffurina - 世界观察</title><meta name="author" content="ffffurina,ffffurina7@gmail.com"><meta name="copyright" content="ffffurina"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Blog de ffffurina">
+<meta property="og:url" content="https://ffffurina.top/page/3/index.html">
+<meta property="og:site_name" content="Blog de ffffurina">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ffffurina.top/img/avatar.jpg">
+<meta property="article:author" content="ffffurina">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ffffurina.top/img/avatar.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ffffurina.top/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Blog de ffffurina',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Blog de ffffurina" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blog de ffffurina</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Blog de ffffurina</h1><div id="site_social_icons"><a class="social-icon" href="https://github.com/ffffurina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ffffurina7@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/16/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/15%20%E5%AE%9A%E8%AF%AD%E4%BB%8E%E5%8F%A5/" title="15 定语从句">15 定语从句</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-16T12:00:57.000Z" title="发表于 2025-11-16 20:00:57">2025-11-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content"> 🚀 阶段三：丰富表达 (Phase 3 Start)Lesson 15: 语法的“降维打击” —— 连体修饰 (Modifying Nouns)这是日语语法逻辑和中文/英文最大的不同点，也是 N5 最难的关卡。 在中文里，我们说“我昨天买的 书”。（用“的”连接）在英文里，我们说“The book that I bought yesterday”。（用关系代词 that/which 后置） 在日语中，逻辑极其简单粗暴：把句子直接放在名词前面。 不需要任何“的”，也不需要“that”。 1. 核心规则：简体形式 (Plain Form Only)要用动词修饰名词，动词绝对不能用敬体（Masu形）。必须用我们刚刚集齐的 “普通形” (Plain Form)。     时态 敬体 (不能用！) 普通形 (修饰名词专用)     现在/将来 行 (い) きます 行 (い) く (字典形)   否定 行 (い) きません 行 (い) かない (Nai形)   过去 行 (い) きました 行 (い) った (Ta形)   过去否定 行 (い) きませんでした 行 (い) かなかった (N...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/16/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/12%20%E5%90%A6%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%AA%E3%81%84%E5%BD%A2/" title="12 否定形：ない形">12 否定形：ない形</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-16T10:57:50.000Z" title="发表于 2025-11-16 18:57:50">2025-11-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content"> Lesson 12: 否定引擎 —— “Nai”形 (ない形) 与禁止请求目前为止，我们表达否定时一直用礼貌体 ～ません (masen)。但这只是封装好的“外壳”。在构建复杂语法（比如“请不要做…”、“必须做…”、简体对话）时，我们需要直接操作动词的内核。 这就是 “ない形” (Nai-Form)，也称为动词的简体否定形。 1. 变形算法 (The Conjugation Algorithm)我们需要再次调用动词的三分类系统。逻辑是把词尾变成 a段 音。 Group 2 (一段动词): 最简单  逻辑: 只要把尾巴的 ru 扔掉，换成 nai。 公式: Drop &#39;ru&#39; + &#39;nai&#39; 食 (た) べる $\rightarrow$ 食 (た) べない (tabenai / 不吃) 見 (み) る $\rightarrow$ 見 (み) ない (minai / 不看)    Group 3 (不规则动词): 死记硬背 (Hardcoded)  する (suru / 做) $\rightarrow$ しない (shinai) 来 (く) る (ku...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/14/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/13%20%E8%BE%9E%E6%9B%B8%E5%BD%A2%EF%BC%9A%E3%81%93%E3%81%A8%EF%BC%8C%E5%89%8D%E3%81%AB/" title="13 辞書形：こと，前に">13 辞書形：こと，前に</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-14T07:38:27.000Z" title="发表于 2025-11-14 15:38:27">2025-11-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content">Lesson 13: 动词的名词化封装 —— 字典形 (Dictionary Form) 与能力表达我们之前一直在学怎么把动词变来变去（Masu, Te, Nai）。今天我们要回到原点——字典形 (Dictionary Form / 辞書形)。也就是动词最原始、未经过任何修饰的状态（你在字典里查到的那个样子）。 但这节课的重点不是“形态”，而是“封装” (Encapsulation)。 1. 核心概念：动词的名词化 (Nominalization)在日语中，动词（比如“吃”）不能直接做主语或宾语。你不能说“我喜欢吃（I like eat）”，必须说“我喜欢吃这件事（I like eating）”。 我们需要一个“包装器” (Wrapper) 把动词转换成名词。这个包装器就是：こと (koto)。  公式：\text{Verb(字典形)} + \text{こと} Logic: Function $\rightarrow$ Object / Event   例子： 食 (た) べる (吃) $\rightarrow$ 食 (た) べること (吃这件事 / Eating) 見 (み) ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/13/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/11%20%E3%81%A6%E5%BD%A2%E7%94%A8%E4%BA%8E%E5%8A%A8%E8%AF%8D%E7%9A%84%E8%BF%9E%EF%BC%9B%E5%B9%B6%E5%88%97%E8%AF%8D%E8%AF%AD%E7%9A%84%E8%BF%9E%E6%8E%A5%E6%B3%95/" title="11 て形用于动词的连；并列词语的连接法">11 て形用于动词的连；并列词语的连接法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-13T15:43:51.000Z" title="发表于 2025-11-13 23:43:51">2025-11-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content"> Lesson 11: 句子的“链表结构” —— 连接动词、形容词与名词在中文里，我们连接两个属性或动作通常用“和”、“然后”、“又…又…”或者直接逗号隔开。但在日语中，你不能简单地用 と (to) 来连接句子（と 只能连接名词）。 日语使用一种**“词尾变形” (Inflection)** 的机制来实现连接。这就像链表（Linked List），前一个节点的指针必须变形，才能指向下一个节点。 这节课我们将一次性解决动词、i形容词、na形容词、名词的连接规则。 1. 动词的连接：动作的顺序 (Sequential Actions)当你想要表达“做了A，然后做了B”时，必须把动作A变成 Te形。  逻辑：Action1_Te + Action2。时态由最后一个动词决定。 公式：V_1\text{て} \rightarrow V_2\text{て} \rightarrow V_3\text{ます/ました}  实战演示 (Implementation)：  场景：早上起床，喝咖啡，去学校。 Step 1 (Unit Actions):  起 (お) きます (okimasu) コーヒー...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/13/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/8-10%20%E8%BF%9E%E7%94%A8%E5%BD%A2%EF%BC%9A%E3%81%A6%E5%BD%A2%E3%80%90%E8%BF%9B%E8%A1%8C%E6%97%B6%EF%BC%8C%E8%AF%B7%E6%B1%82%E3%80%91/" title="8-10 连用形：て形【进行时，请求】">8-10 连用形：て形【进行时，请求】</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-13T14:08:15.000Z" title="发表于 2025-11-13 22:08:15">2025-11-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content">Lesson 8: 动词的“连用形” —— て形 (Te-Form) [Part 1]恭喜你完成了第一阶段！现在我们进入日语语法的深水区——“て形” (Te-form)。这是日语中最重要的变形，没有之一。如果你掌握了 te-form，你就能把简单的句子像积木一样拼接起来。 这节课我们只讲怎么变（算法），下节课讲怎么用。 1. 为什么叫“连接形”？Te (て) 的本质意思是“And then…” (然后…)。它用于连接两个动作。  吃了饭，然后睡觉。 $\rightarrow$ 吃 (te)，睡觉。  2. 变形核心算法 (The Algorithm)还记得动词分为三类吗？这里的变形规则完全依赖那个分类。 Group 2 (一段动词): 最简单  Logic: 去 ru + te 食 (た) べる $\rightarrow$ 食 (た) べて (tabete) 見 (み) る $\rightarrow$ 見 (み) て (mite)  Group 3 (不规则动词): 死记  する $\rightarrow$ して (shite) 来 (く) る $\rightarrow$ 来 (...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/13/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/7%20%E7%96%91%E9%97%AE%E4%BB%A3%E8%AF%8D/" title="7 疑问代词">7 疑问代词</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-13T13:25:40.000Z" title="发表于 2025-11-13 21:25:40">2025-11-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content">Lesson 7: 全能询问系统 —— 5W1H 的“原位替换”在英语中，提问通常需要把 What / Where 提到句首（Move Alpha）。但在日语中，逻辑非常简单：哪里不懂改哪里。 不需要移动词序，只需要把你想问的那个部分（主语、宾语、地点、时间）替换成对应的“疑问词”即可。 1. 核心疑问词清单 (Query Variables)请务必背熟这几个“变量名”：     汉字 (假名) 读音 含义 备注     何 (なに / なん) nani / nan 什么 后面接 d/t/n 开头的音时读 nan   誰 (だれ) dare 谁 礼貌说法是 どなた (donata)   どれ dore 哪个 which   いつ itsu 什么时候 后面通常不加 に   どこ doko 哪里 场所   どう dou 怎么样 询问状态/意见   いくら ikura 多少钱 价格     2. 难点攻克：何 (Nani) vs 何 (Nan)这是初学者最容易晕的地方。虽然汉字都是“何”，但读音会根据后面的音节发生“连读变音”。  读 Nan (なん) 的情况： 后面跟着 desu：何...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/13/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/4,5%20%E6%95%AC%E4%BD%93%E5%BD%A2%EF%BC%9A%E3%81%BE%E3%81%99%E5%BD%A2/" title="4,5 敬体形：ます形">4,5 敬体形：ます形</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-13T11:15:09.000Z" title="发表于 2025-11-13 19:15:09">2025-11-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content"> Lesson 4: 动词引擎(1) —— “Masu”形与时间轴目前为止我们学的都是静态描述（是什麽、在哪里）。从现在开始，我们要让语言“动”起来（吃、喝、看、去）。 日语动词的变形非常像编程中的函数重载（Function Overloading）。同一个词根，根据后缀不同，功能完全改变。 1. 动词的三大分类 (The Class System)在字典里，动词都是以 原形 (Dictionary Form) 出现的。通过原形，我们可以把动词分为三类。这个分类决定了它们如何变形。  特征：所有日语动词原形都以 u段音 结尾（u, ku, su, tsu, nu, bu, mu, ru, gu）。      类别 名称 识别算法 (Recognition Logic) 例子     Group 2 一段动词 (Ichidan) 以 ru 结尾，且 ru 前面的音是 i段 或 e段。  (即发音以 -iru 或 -eru 结尾) 見る (miru, 看)食べる (taberu, 吃)   Group 3 不规则动词 (Irregular) 全日语只有两个，必须死记硬背（Hardco...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/12/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/2%20%E6%8C%87%E7%A4%BA%E4%BB%A3%E8%AF%8D%EF%BC%9A%E3%81%93%E3%81%9D%E3%81%82%E3%81%A9/" title="2 指示代词：こそあど">2 指示代词：こそあど</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-12T08:40:33.000Z" title="发表于 2025-11-12 16:40:33">2025-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content"> Lesson 2: 日语的空间逻辑 —— “こそあど” (Ko-So-A-Do) 体系在英语中，我们通常只有 This (近) 和 That (远)。但在日语中，为了精确描述物体相对于“我”和“你”的位置，将指示代词分为四类。这被称为 Ko-So-A-Do 体系。 1. 核心逻辑算法想象你（Speaker）和听话人（Listener）在空间中站立：  Ko- (こ系列)：近称。物体在 Speaker (我) 的领域内。 逻辑：This (near me).   So- (そ系列)：中称。物体在 Listener (你) 的领域内。 逻辑：That (near you).   A- (あ系列)：远称。物体既不在我这里，也不在你那里，在 远方。 逻辑：That over there (far from both).   Do- (ど系列)：不定称。用于 提问。 逻辑：Which / Where?    2. 语法矩阵 (The Syntax Matrix)这个体系可以根据后缀的不同，决定它是代词、限定词还是场所词。请务必背下这个矩阵：     前缀 (Prefix) -re (れ)...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/11/12/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/1%20%E5%88%A4%E6%96%AD%E5%8F%A5%EF%BC%9A%E3%81%A7%E3%81%99/" title="1 判断句：です">1 判断句：です</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-11-12T08:00:25.000Z" title="发表于 2025-11-12 16:00:25">2025-11-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/">日语</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/">语法</a></span></div><div class="content">Lesson 1: 名词谓语句与主题标记核心公式： \text{Topic} + \text{Particle (WA)} + \text{Noun/Property} + \text{Copula (DESU)}也就是： \mathbf{A} \text{ は } \mathbf{B} \text{ です}1. 语法逻辑解析 $\mathbf{A}$ (Topic): 这是句子的“主题”，相当于你定义了一个全局变量，接下来的讨论都围绕它展开。 $\text{は}$ (Particle): 读音注意：作为助词时，它读作 wa，而不是 ha。 功能：主题标记 (Topic Marker)。它主要起“提示”作用。 汉译类比：你可以把它理解为中文里的“至于 A 嘛…”、“说到 A…”。 CS类比：switch(A) { case ... } 或者设定当前 Context 为 A。   $\mathbf{B}$ (Noun/Content): 对主题的描述或定义。 $\text{です}$ (Copula): 读音：desu (注意 u 音通常会轻读，听起来像 des)。 功能：判断助动词...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ffffurina</div><div class="author-info-description">超越技术，丈量世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ffffurina"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ffffurina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ffffurina7@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/24%20%E5%81%87%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%B0%E5%BD%A2/" title="24 假定形：ば形">24 假定形：ば形</a><time datetime="2025-12-01T05:02:38.000Z" title="发表于 2025-12-01 13:02:38">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/" title="3 RNN&amp;Transformer">3 RNN&amp;Transformer</a><time datetime="2025-12-01T04:55:36.000Z" title="发表于 2025-12-01 12:55:36">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/" title="4 Image Generation Intro">4 Image Generation Intro</a><time datetime="2025-12-01T04:55:31.000Z" title="发表于 2025-12-01 12:55:31">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/" title="6 Object Detection">6 Object Detection</a><time datetime="2025-12-01T04:55:11.000Z" title="发表于 2025-12-01 12:55:11">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/" title="1. CNN">1. CNN</a><time datetime="2025-12-01T04:54:29.000Z" title="发表于 2025-12-01 12:54:29">2025-12-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%A5%E8%AF%AD/"><span class="card-category-list-name">日语</span><span class="card-category-list-count">23</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">语法</span><span class="card-category-list-count">23</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"><span class="card-category-list-name">计算机视觉</span><span class="card-category-list-count">6</span></a></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">24</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">29</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-12-01T07:07:24.989Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By ffffurina</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"></div><script async data-pjax src="/"></script></div></body></html>

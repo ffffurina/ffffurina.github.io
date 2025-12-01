@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>1. CNN | Blog de ffffurina</title><meta name="author" content="ffffurina,ffffurina7@gmail.com"><meta name="copyright" content="ffffurina"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="一 从全连接层到卷积：1.为什么MLP的全连接层不适用于图像分类任务？我们之前讨论的多层感知机十分适合处理表格数据，其中行对应样本，列对应特征。对于表格数据，我们寻找的模式可能涉及特征之间的交互，但是我们不能预先假设任何与特征交互相关的先验结构。 假设我们有一个足够充分的照片数据集，数据集中是拥有标注的照片，每张照片具有百万级像素，这意味着网络的每次输入都有一百万个维度。 即使将隐藏层维度降低到1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1. CNN">
+<meta property="og:url" content="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/index.html">
+<meta property="og:site_name" content="Blog de ffffurina">
+<meta property="og:description" content="一 从全连接层到卷积：1.为什么MLP的全连接层不适用于图像分类任务？我们之前讨论的多层感知机十分适合处理表格数据，其中行对应样本，列对应特征。对于表格数据，我们寻找的模式可能涉及特征之间的交互，但是我们不能预先假设任何与特征交互相关的先验结构。 假设我们有一个足够充分的照片数据集，数据集中是拥有标注的照片，每张照片具有百万级像素，这意味着网络的每次输入都有一百万个维度。 即使将隐藏层维度降低到1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ffffurina.top/img/avatar.jpg">
+<meta property="article:published_time" content="2025-12-01T04:54:29.000Z">
+<meta property="article:modified_time" content="2025-12-01T05:56:15.809Z">
+<meta property="article:author" content="ffffurina">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ffffurina.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "1. CNN",
+  "url": "https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/",
+  "image": "https://ffffurina.top/img/avatar.jpg",
+  "datePublished": "2025-12-01T04:54:29.000Z",
+  "dateModified": "2025-12-01T05:56:15.809Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ffffurina",
+      "url": "https://ffffurina.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '1. CNN',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Blog de ffffurina" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blog de ffffurina</span></a><a class="nav-page-title" href="/"><span class="site-name">1. CNN</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> 小记</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">1. CNN</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-01T04:54:29.000Z" title="发表于 2025-12-01 12:54:29">2025-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-01T05:56:15.809Z" title="更新于 2025-12-01 13:56:15">2025-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一-从全连接层到卷积："><a href="#一-从全连接层到卷积：" class="headerlink" title="一 从全连接层到卷积："></a>一 从全连接层到卷积：</h2><h3 id="1-为什么MLP的全连接层不适用于图像分类任务？"><a href="#1-为什么MLP的全连接层不适用于图像分类任务？" class="headerlink" title="1.为什么MLP的全连接层不适用于图像分类任务？"></a>1.为什么MLP的全连接层不适用于图像分类任务？</h3><p>我们之前讨论的多层感知机十分适合处理表格数据，其中行对应样本，列对应特征。<br>对于表格数据，我们寻找的模式可能涉及特征之间的交互，但是我们<strong>不能预先假设任何与特征交互相关的先验结构</strong>。</p>
+<p>假设我们有一个足够充分的照片数据集，数据集中是拥有标注的照片，每张照片具有百万级像素，这意味着网络的每次输入都有一百万个维度。 即使将隐藏层维度降低到1000，这个全连接层也将有$10^6×10^3$个参数。<br>此外，MLP在处理图像前，需要将其“展平”(flatten)成一个一维向量。这个操作完全破坏了图像固有的空间结构信息（例如，像素之间的邻近关系、物体的局部形状等），而这些信息对于理解图像内容至关重要。</p>
+<p>如今人类和机器都能很好地区分猫和狗：这是因为图像中本就拥有丰富的结构，而这些结构可以被人类和机器学习模型使用。<br><em>卷积神经网络</em>（convolutional neural networks，CNN）就是机器学习利用自然图像中一些已知结构的创造性方法。</p>
+<h3 id="2-卷积的原理——空间不变性："><a href="#2-卷积的原理——空间不变性：" class="headerlink" title="2.卷积的原理——空间不变性："></a>2.卷积的原理——空间不变性：</h3><p>以从一张图片里找到一个对象的任务为例，因为对象不管在哪里，其形态都相同，所以神经网络架构应该满足：</p>
+<ol>
+<li><em>平移不变性</em>（translation invariance）：不管检测对象出现在图像中的哪个位置，神经网络的前面几层应该对相同的图像区域具有相似的反应，即为“平移不变性”。<script type="math/tex; mode=display">[H]_{(i,j)}=u+\sum_a\sum_b [V]_{a,b}[X]_{i+a,j+b}</script></li>
+<li><em>局部性</em>（locality）：神经网络的前面几层应该只探索输入图像中的局部区域，而不过度在意图像中相隔较远区域的关系，这就是“局部性”原则。最终，可以聚合这些局部特征，以在整个图像级别进行预测。<script type="math/tex; mode=display">[H]_{(i,j)}=u+\sum_{a=-\Delta}^{\Delta}\sum_{b=-\Delta}^{\Delta} [V]_{a,b}[X]_{i+a,j+b}</script>这样得到的便是一个<strong>卷积层</strong>，$[V]_{a,b}$被称为<strong>卷积核/滤波器</strong>，或简单地称之为该卷积层的权重，通常该权重是可学习的参数。<br>如果是三维图片（加上一个维度c）且是多通道的（如RGB Channel，需要增加第四维d）:<script type="math/tex; mode=display">[H]_{i,j，d}=u+\sum_{a=-\Delta}^{\Delta}\sum_{b=-\Delta}^{\Delta}\sum_c [V]_{a,b,c,d}[X]_{i+a,j+b,c}</script><h3 id="3-卷积核计算≠数学上的卷积"><a href="#3-卷积核计算≠数学上的卷积" class="headerlink" title="3.卷积核计算≠数学上的卷积"></a>3.卷积核计算≠数学上的卷积</h3>为什么上述计算被称为卷积？<br>数学上的卷积定义：<script type="math/tex; mode=display">(f*g)(x)=\int f(z)g(x-z)dz</script>卷积是当把一个函数g“翻转”并移位x时，测量f和g之间的重叠区域面积。<br>对离散的对象：<script type="math/tex; mode=display">(f*g)(i)=\sum_a f(a)g(i-a)</script>如果输入的是二维张量，则：<script type="math/tex; mode=display">(f*g)(i,j)=\sum_a\sum_b f(a,b)g(i-a,j-b)</script>这与前面构造的卷积核类似，实际上，<strong>深度学习的卷积是在数学上是互相关(Cross Correlation)</strong> 计算，与卷积的区别在于，卷积使用的是差值，而卷积层使用的是和值。<br>实际计算时，在几乎所有的深度学习框架（TensorFlow, PyTorch等）中，所谓的 <strong>“卷积层”实际上执行的是互相关操作</strong> ，而不是像卷积计算那样，将卷积核<strong>先水平翻转，再垂直翻转</strong>，然后再进行滑动和元素乘积求和。<h2 id="二-卷积神经网络的核心机制"><a href="#二-卷积神经网络的核心机制" class="headerlink" title="二 卷积神经网络的核心机制"></a>二 卷积神经网络的核心机制</h2></li>
+</ol>
+<h3 id="1-CNN引入了新的概念："><a href="#1-CNN引入了新的概念：" class="headerlink" title="1.CNN引入了新的概念："></a>1.CNN引入了新的概念：</h3><ul>
+<li><strong>局部感受野 (Local Receptive Fields)</strong>：每个神经元不再连接到前一层的所有神经元，而只连接到一个局部的区域。这就像我们看东西时，总是一小块一小块地聚焦，而不是一眼就看到所有像素的细节。</li>
+<li><strong>参数共享 (Parameter Sharing)</strong>：在一个图像中，用于检测某个特征（例如，一个垂直边缘）的参数，在图像的不同位置上应该是相同的。因此，CNN使用一个共享的<strong>卷积核（或称为滤波器）</strong> 来“扫描”整个图像，极大地减少了参数数量。</li>
+<li><strong>池化 (Pooling)</strong>：通过对特征进行下采样（down-sampling）来降低特征图的维度，使得模型对物体在图像中的微小位移不那么敏感（即<strong>平移不变性</strong>），同时减少计算量。</li>
+</ul>
+<h3 id="2-一个经典的CNN架构流程："><a href="#2-一个经典的CNN架构流程：" class="headerlink" title="2.一个经典的CNN架构流程："></a>2.<strong>一个经典的CNN架构流程：</strong></h3><p><code>INPUT -&gt; [CONV -&gt; ReLU -&gt; POOL] * N -&gt; [FC -&gt; ReLU] * M -&gt; OUTPUT</code></p>
+<ul>
+<li><strong>输入层 (INPUT)</strong>：接收原始图像数据，例如 $32\times32\times3$ 的张量。</li>
+<li><strong>卷积-激活-池化层 (CONV-ReLU-POOL)</strong>：这个组合是CNN的核心特征提取器。<ul>
+<li>网络的前几层通常学习到一些低级特征，如边缘、角点、颜色块。</li>
+<li>随着网络加深，后续层会组合这些低级特征，形成更高级、更抽象的特征，如眼睛、鼻子、轮廓，或者是物体的部件。</li>
+</ul>
+</li>
+<li><strong>全连接层 (FC)</strong>：在经过多次特征提取后，最终得到的抽象特征图会被展平成一个向量，然后送入一个或多个全连接层。这部分的作用与MLP类似，它根据提取到的高级特征进行“推理”，并完成最终的分类任务。</li>
+<li><strong>输出层 (OUTPUT)</strong>：使用Softmax等函数输出最终的类别概率。<h3 id="为什么ReLU可以引入非线性？"><a href="#为什么ReLU可以引入非线性？" class="headerlink" title="为什么ReLU可以引入非线性？"></a>为什么ReLU可以引入非线性？</h3>Relu拟合任意函数的机制:add+stack后变成复杂分段线性函数，可以拟合非线性函数，<br><img src="/images/080f43f9-5b65-451b-aae0-23cf0eda4728.png" alt=""><h2 id="三-卷积层"><a href="#三-卷积层" class="headerlink" title="三 卷积层"></a>三 卷积层</h2><h3 id="1-工作流程："><a href="#1-工作流程：" class="headerlink" title="1.工作流程："></a>1.<strong>工作流程</strong>：</h3></li>
+</ul>
+<ol>
+<li><strong>输入特征图 (Input Feature Map)</strong>：待处理的数据，例如原始图像。</li>
+<li><strong>卷积核 (Kernel / Filter)</strong>：一个小的权重矩阵（例如 $3\times3 或 5\times5$），<strong>这个权重是需要通过训练学习的</strong>。每个卷积核都像一个“特征探测器”，专门用于探测某种特定的局部特征（如垂直边缘、红色块等）。</li>
+<li><strong>卷积操作</strong>：卷积核在输入特征图上从左到右、从上到下滑动。在每一个位置，计算卷积核与输入特征图上对应小块的<strong>元素乘积之和</strong>。</li>
+<li><strong>输出特征图 (Output Feature Map / Activation Map)</strong>：将所有位置的计算结果组合起来，形成一个新的二维矩阵，即输出特征图。这个图上的每个像素值，代表了该位置对卷积核所探测特征的响应强度。<h3 id="2-卷积核："><a href="#2-卷积核：" class="headerlink" title="2.卷积核："></a>2.卷积核：</h3><strong>1x1卷积核</strong>：实现跨通道的线性组合<br>一个卷积层的输入特征图尺寸为 $H\times W\times C<em>{in}$（$C</em>{in}$输入通道数）。<br>一个 1x1 的卷积核，其完整的尺寸实际上是 1x1x$C<em>{in}$。当它进行“卷积”操作时，在输入图的每一个像素位置 <code>(h, w)</code> 上，它所做的是： **将该位置上所有$C</em>{in}$个通道的值，与卷积核自身的 $C_{in}$个权重进行加权求和。<strong><br>这本质上是在</strong>不改变图像宽高<strong>的情况下，对每一个像素位置的</strong>通道信息<strong>做了一次</strong>全连接<strong>操作。<br>（此外，1x1卷积层还可以在网络学习中引入</strong>非线性<strong>，因为卷积层是</strong>卷积+激活函数**,可以在不改变图像宽高的情况下，对特征进行一次非线性变换，增强了网络的表达能力）<h3 id="3-超参数："><a href="#3-超参数：" class="headerlink" title="3.超参数："></a>3.<strong>超参数</strong>：</h3><h4 id="1）滤波器数量-Number-of-Filters-："><a href="#1）滤波器数量-Number-of-Filters-：" class="headerlink" title="(1）滤波器数量 (Number of Filters)："></a>(1）<strong>滤波器数量 (Number of Filters)</strong>：</h4>决定了输出特征图的<strong>深度</strong>。如果有64个滤波器，输出的深度就是64。每个滤波器学习探测一种不同的特征。<br>滤波器数量（也即卷积核数量）决定输出通道的数量，从而实现升降维。<br>例如，如果你的输入是 56x56x192（192个通道），但你希望减少计算量，你可以使用32个 1x1 的卷积核。输出的特征图尺寸将变为 56x56x32。通道数从192锐减到32，极大地减少了后续卷积层的参数量和计算量。<h4 id="2-填充-Padding-："><a href="#2-填充-Padding-：" class="headerlink" title="(2) 填充 (Padding)："></a>(2) <strong>填充 (Padding)</strong>：</h4>一个240x240像素的图像，经过10层5x5的卷积后，将减少到200x200像素。如此一来，原始图像的边界丢失了许多有用信息。<br>我们可以在输入特征图的边缘填充0。这主要有两个目的：<ol>
+<li><strong>保持边界信息</strong>：让卷积核能够处理到图像边缘的像素。</li>
+<li><strong>控制输出尺寸</strong>：通过适当的填充，可以使输出特征图的宽高与输入保持一致。<br>如果我们添加$p_h$行填充（大约一半在顶部，一半在底部）和$p_w$列填充（左侧大约一半，右侧一半），则输出形状将为<script type="math/tex; mode=display">(n_h-k_h+p_h+1)\times(n_w-k_w+p_w+1)</script>在许多情况下，我们需要设置$p_h=k_h-1$和$p_w=k_w-1$，使输入和输出具有相同的高度和宽度$n_h$和$n_k$。也就是每次用卷积核处理时都在图像外围增加$(k_h-1)/2$行和$(k_w-1)/2$列。<h4 id="3）步幅-Stride-："><a href="#3）步幅-Stride-：" class="headerlink" title="(3）步幅 (Stride)："></a>(3）<strong>步幅 (Stride)</strong>：</h4>卷积核每次滑动的像素距离。步幅为1表示逐像素滑动，步幅为2则会使输出特征图的尺寸减半。<br>当垂直步幅为$s_h$、水平步幅为$s_w$时，输出形状为:<script type="math/tex; mode=display">[(n_h-k_h+p_h+s_h)/s_h]\times[(n_w-k_w+p_w+s_w)/s_w]</script>由于一般我们设置$p_h=k_h-1$和$p_w=k_w-1$，这样输出形状即为<script type="math/tex; mode=display">[(n_h+s_h-1)/s_h]\times[(n_w+s_w-1)/s_w]</script>如果$n_h$和$n_k$分别能被$s_h$和$s_k$整除，那么输出形状为$[n_h/s_h]\times[n_w/s_w]$因为$s_h-1/s_h&lt;1$</li>
+</ol>
+</li>
+</ol>
+<p><img src="Pasted%20image%2020250815100609.png" alt=""></p>
+<h2 id="四-池化层-Pooling，也称汇聚层"><a href="#四-池化层-Pooling，也称汇聚层" class="headerlink" title="四 池化层 (Pooling，也称汇聚层)"></a>四 池化层 (Pooling，也称汇聚层)</h2><h4 id="（1）目的："><a href="#（1）目的：" class="headerlink" title="（1）目的："></a>（1）目的：</h4><h5 id="a-降低卷积层对位置的敏感性"><a href="#a-降低卷积层对位置的敏感性" class="headerlink" title="a.降低卷积层对位置的敏感性:"></a>a.降低卷积层对位置的敏感性:</h5><p>假设一个 2x2 的最大池化窗口正在处理一个探测“眼睛”的特征图。如果这只“眼睛”在输入图像中向右平移了一个像素，它在特征图上的强烈响应位置也会平移一个像素。但只要这个强烈响应仍然落在这个 2x2 的池化窗口内，<strong>池化后的输出值将完全相同</strong>。</p>
+<h5 id="b-降低对空间降采样表示的敏感性"><a href="#b-降低对空间降采样表示的敏感性" class="headerlink" title="b.降低对空间降采样表示的敏感性:"></a>b.降低对空间降采样表示的敏感性:</h5><p>池化操作将一个局部区域内的特征图信息，用一个<strong>单一的值</strong>（如该区域的最大值）来概括。 这可以被看作是一种<strong>特征选择</strong>或<strong>信息提炼</strong>。<br>一方面使得特征图的尺寸变小，后续层的计算量和参数量都随之减少。<br>另一方面，通过保留最关键的信息并丢弃部分细节，有助于提升模型的泛化能力。</p>
+<h4 id="（2）两种pooling："><a href="#（2）两种pooling：" class="headerlink" title="（2）两种pooling："></a>（2）两种pooling：</h4><p>pooling是使用类似的卷积的滑动窗口(常用2x2大小)，但它没有参数，只是做如下两种操作的一种：</p>
+<ul>
+<li><strong>最大池化 (Max Pooling)</strong>：<strong>最常用</strong>。在窗口内取最大值作为输出。它能有效地保留最显著的特征（如最亮的像素点）。</li>
+<li><strong>平均池化 (Average Pooling)</strong>：在窗口内取平均值作为输出。它能平滑特征，保留更多的背景信息。<br>我们当然也可以指定汇聚层的填充和步幅。使用最大汇聚层以及大于1的步幅，可减少空间维度（高度和宽度）。<h2 id="五-现代CNN网络：从LeNet到ResNet"><a href="#五-现代CNN网络：从LeNet到ResNet" class="headerlink" title="五 现代CNN网络：从LeNet到ResNet"></a>五 现代CNN网络：从LeNet到ResNet</h2><h3 id="1-LeNet："><a href="#1-LeNet：" class="headerlink" title="1.LeNet："></a>1.LeNet：</h3><img src="Pasted%20image%2020250815111034.png" alt=""><br>Yann LeCun的LeNet<br>LeNet（LeNet-5）由两个部分组成：</li>
+<li>卷积编码器：由两个卷积层组成;</li>
+<li>全连接层密集块：由三个全连接层组成。<br>每个卷积块中的基本单元是一个卷积核、一个sigmoid激活函数和平均汇聚层。（虽然ReLU和最大汇聚层更有效，但它们在20世纪90年代还没有出现）<br>第一卷积层有6个输出通道(得到6@28x28，即六个输出通道，每个通道和之前输入的大小相等），池操作通过空间下采样将维数减少4倍（得到6@14x14）<br>而第二个卷积层有16个输出通道（6@10x10）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Conv2d(<span class="number">1</span>, <span class="number">6</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>), nn.Sigmoid(),</span><br><span class="line">    nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, kernel_size=<span class="number">5</span>), nn.Sigmoid(),</span><br><span class="line">    nn.AvgPool2d(kernel_size=<span class="number">2</span>, stride=<span class="number">2</span>),</span><br><span class="line">    nn.Flatten(),</span><br><span class="line">    nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>), nn.Sigmoid(),</span><br><span class="line">    nn.Linear(<span class="number">120</span>, <span class="number">84</span>), nn.Sigmoid(),</span><br><span class="line">    nn.Linear(<span class="number">84</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-AlexNet"><a href="#2-AlexNet" class="headerlink" title="2.AlexNet"></a>2.AlexNet</h3><p>在2012年前，图像特征都是机械地计算出来的。事实上，设计一套新的特征函数、改进结果，并撰写论文是盛极一时的潮流。SIFT (<a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_references/zreferences.html#id102" title="Lowe, D. G. (2004). Distinctive image features from scale-invariant keypoints. International journal of computer vision, 60(2), 91–110.">Lowe, 2004</a>)、SURF (<a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_references/zreferences.html#id7" title="Bay, H., Tuytelaars, T., &amp; Van Gool, L. (2006). Surf: speeded up robust features. European conference on computer vision (pp. 404–417).">Bay <em>et al.</em>, 2006</a>)、HOG（定向梯度直方图） (<a target="_blank" rel="noopener" href="https://zh-v2.d2l.ai/chapter_references/zreferences.html#id29" title="Dalal, N., &amp; Triggs, B. (2005). Histograms of oriented gradients for human detection. 2005 IEEE computer society conference on computer vision and pattern recognition (CVPR&#39;05) (pp. 886–893).">Dalal and Triggs, 2005</a>)、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bag-of-words_model_in_computer_vision">bags of visual words</a>和类似的特征提取方法占据了主导地位。</p>
+<p>另一组研究人员认为特征本身应该被学习。在合理地复杂性前提下，特征应该由多个共同学习的神经网络层组成，每个层都有可学习的参数。在机器视觉中，最底层可能检测边缘、颜色和纹理。这个便是AlexNet的思想。</p>
+<p>包含许多特征的深度模型需要<strong>大量的有标签数据</strong>，才能显著优于基于凸优化的传统方法（如线性方法和核方法）。2009年，<strong>ImageNet数据集</strong>发布，并发起ImageNet挑战赛：要求研究人员从100万个样本中训练模型，以区分1000个不同类别的对象。这一开源数据集解决了训练模型数据不足的问题。</p>
+<p>另一方面，深度学习对<strong>计算资源</strong>要求很高，训练可能需要数百个迭代轮数，每次迭代都需要通过代价高昂的许多线性代数层传递数据。这也是为什么在20世纪90年代至21世纪初，优化凸目标的简单算法是研究人员的首选。然而，用<strong>GPU</strong>训练神经网络改变了这一格局。</p>
+<p>在此背景下，AlexNet应运而生，它用强大的硬件（GPU）和更深的网络结构，以碾压性的优势告诉全世界：深度学习这条路，走得通！<br><img src="Pasted%20image%2020250816143843.png" alt=""><br>LeNet与AlexNet的对比，如上图<br>1.由于图片像素量不同，所以第一层卷积层更大。此外AlexNet的卷积通道数目是LeNet的10倍。<br>2.Sigmoid被换成了更简易并且梯度更新更稳定的ReLU<br>3.AlexNet使用了Dropout，而LeNet只使用了权重衰减。<br>4.为了进一步扩充数据，AlexNet在训练时增加了大量的图像增强数据，如翻转、裁切和变色。 这使得模型更健壮，更大的样本量有效地减少了过拟合。</p>
+<h3 id="3-VGG"><a href="#3-VGG" class="headerlink" title="3.VGG"></a>3.VGG</h3><p><img src="Pasted%20image%2020250816150117.png" alt=""><br>VGG的作者们发现AlexNet的结构有点“杂乱”（用了大小不一的卷积核）。他们想，我们能不能只用一种最标准、最好用的“乐高积木”来搭建网络？他们选择了 <strong>3×3 的小卷积核</strong>。然后，他们就像一个强迫症艺术家一样，用这种积木整齐划一地、一层又一层地堆叠。<br>VGG的整个网络就是不断重复 <strong>[卷积 -&gt; 卷积 -&gt; 池化]</strong> 的过程。VGG证明了，只要结构设计得足够简洁优美，一味地加深网络也能带来性能的持续提升。</p>
+<h3 id="4-NiN"><a href="#4-NiN" class="headerlink" title="4.NiN"></a>4.NiN</h3><p> NiN的想法是<strong>在每个像素位置（针对每个高度和宽度）应用一个全连接层</strong>。 如果我们将权重连接到每个空间位置，我们可以将其视为 <strong>1x1 卷积层</strong> ，或作为在每个像素位置上独立作用的全连接层。 从另一个角度看，即将空间维度中的每个像素视为单个样本，将通道维度视为不同特征（feature）。<br><img src="Pasted%20image%2020250816150326.png" alt=""><br>VGG vs NiN<br> NiN块以一个普通卷积层开始，后面是两个的卷积层。这两个卷积层充当带有ReLU激活函数的逐像素全层。NiN完全取消了全连接层。 相反，NiN使用一个NiN块，其输出通道数等于标签类别的数量。<br> 最后放一个<strong>全局平均汇聚层（global average pooling layer）</strong>，它不再粗暴地将特征图展平，而是将每个特征图（代表一种高级特征）取一个平均值，这极大地减少了参数数量，降低了过拟合风险。</p>
+<h3 id="5-GoogLeNet"><a href="#5-GoogLeNet" class="headerlink" title="5.GoogLeNet"></a>5.GoogLeNet</h3><p>使用<strong>Inception块</strong>，结构如下，是四个并行的子路径。<br>前三条路径使用窗口大小为1x1、3x3和5x5的卷积层，从不同空间大小中提取信息。 中间的两条路径在输入上<strong>执行1x1卷积，以减少通道数</strong>，从而降低模型的复杂性。 第四条路径使用3x3最大汇聚层，然后使用卷积层来改变通道数。<br>它们可以用各种滤波器尺寸探索图像，这意味着不同大小的滤波器可以有效地<strong>识别不同范围的图像细节</strong>。 同时，我们可以为不同的滤波器分配不同数量的参数。<br><img src="Pasted%20image%2020250816151609.png" alt=""><br>在网络的最后，也使用了借鉴自NiN的<strong>全局平均池化</strong><br><img src="Pasted%20image%2020250816151752.png" alt=""></p>
+<h3 id="6-ResNet"><a href="#6-ResNet" class="headerlink" title="6.ResNet"></a>6.ResNet</h3><p>假设神经网络架构为F，对于所有f ∈ F，我们可以训练调整参数得到最优f<em>。<br>通常我们无法直接找到最优的，但是可以优化损失函数:<br>$f</em>=\text{argmin}_f L(X,y,f)$<br>下图反映，对非嵌套函数类，更复杂的函数(下图F6比F1更复杂)不一定比简单的更近似真函数。<br><img src="Pasted%20image%2020250816152415.png" alt=""><br>因此，只有当较复杂的函数类包含<strong>较小的函数类</strong>时，我们才能确保提高它们的性能。<br>对于深度神经网络，如果我们能将新添加的层训练成 <strong>恒等映射（identity function）</strong>，新模型和原模型将同样有效。同时，由于新模型可能得出更优的解来拟合训练数据集，因此添加层似乎更容易降低训练误差。<br> 残差网络的核心思想是：每个附加层都应该更容易地包含原始函数作为其元素之一。 于是，<strong>残差块（residual blocks</strong>）便诞生了。允许原始信息（和梯度）直接跳过几个复杂的层，快速传递到网络的深处。<br> <img src="Pasted%20image%2020250817095818.png" alt=""><br> <img src="Pasted%20image%2020250817095947.png" alt=""><br> 正常块vs残差块</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ffffurina.top">ffffurina</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/">https://ffffurina.top/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ffffurina.top" target="_blank">Blog de ffffurina</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/" title="6 Object Detection"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">6 Object Detection</div></div><div class="info-2"><div class="info-item-1">1. 任务定义与挑战目标检测的任务不仅是判断图像中有什么（分类），还要确定它们在哪里（定位）。 1.1 任务定义 输入：单张 RGB 图像。 输出：一组检测到的物体 ${ (c_i, b_i) }$，其中： $c_i$ 是类别标签（如“猫”、“车”）。 $b_i$ 是边界框 (Bounding Box)，通常表示为 $(x, y, w, h)$，即中心坐标及宽高。    1.2 核心挑战 输出数量不固定：图像中可能包含 0 到任意多个物体，无法像分类任务那样输出固定维度的向量。 多任务学习：需要同时进行分类（离散）和回归（连续）。 尺度变化：物体在图像中的尺寸差异巨大。  1.3 评估指标 IoU (Intersection over Union)：交并比，用于衡量预测框与真实框 (Ground Truth) 的重叠程度。   \text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}} mAP (mean Average Precision)：各类别的平均精度 (AP) 的均值，是衡量检测器性能的黄金标准。  ...</div></div></div></a><a class="pagination-related" href="/2025/11/29/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/26%20%E4%BD%BF%E5%BD%B9%E5%BD%A2/" title="26 使役形"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">26 使役形</div></div><div class="info-2"><div class="info-item-1">好，我们继续完成动词变形的拼图。首先，我们来 Check 一下 Lesson 25 (被动形) 的作业，看看你的“受害视角”切换得是否顺畅。 ✅ Lesson 25 习题参考答案 (Debug) 变形训练：      原形 意思 ⑨ 被動形 (Passive) 备注     盗 (ぬす) む 偷 盗 (ぬす) まれる G1 mu $\rightarrow$ ma   壊 (こわ) す 弄坏 壊 (こわ) される G1 su $\rightarrow$ sa   見 (み) る 看 見 (み) られる G2 去 ru + rareru   招待 (しょうたい) する 招待 招待 (しょうたい) される G3 suru $\rightarrow$ sareru      基本被动句：  我被狗咬了。 私 (わたし) は 犬 (いぬ) に 噛 (か) まれました。 (噛む $\rightarrow$ 噛まれる)   受害/所属被动：  我被弟弟弄坏了相机。 私 (わたし) は 弟 (おとうと) に カメラ を 壊 (こわ) されました。 (Check: 助词 に 标记弟弟，を 标记相机...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ffffurina</div><div class="author-info-description">超越技术，丈量世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ffffurina"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ffffurina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ffffurina7@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E4%BB%8E%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82%E5%88%B0%E5%8D%B7%E7%A7%AF%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">一 从全连接层到卷积：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88MLP%E7%9A%84%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82%E4%B8%8D%E9%80%82%E7%94%A8%E4%BA%8E%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.为什么MLP的全连接层不适用于图像分类任务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8D%B7%E7%A7%AF%E7%9A%84%E5%8E%9F%E7%90%86%E2%80%94%E2%80%94%E7%A9%BA%E9%97%B4%E4%B8%8D%E5%8F%98%E6%80%A7%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">2.卷积的原理——空间不变性：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8D%B7%E7%A7%AF%E6%A0%B8%E8%AE%A1%E7%AE%97%E2%89%A0%E6%95%B0%E5%AD%A6%E4%B8%8A%E7%9A%84%E5%8D%B7%E7%A7%AF"><span class="toc-number">1.3.</span> <span class="toc-text">3.卷积核计算≠数学上的卷积</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">二 卷积神经网络的核心机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-CNN%E5%BC%95%E5%85%A5%E4%BA%86%E6%96%B0%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">1.CNN引入了新的概念：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%80%E4%B8%AA%E7%BB%8F%E5%85%B8%E7%9A%84CNN%E6%9E%B6%E6%9E%84%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">2.一个经典的CNN架构流程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88ReLU%E5%8F%AF%E4%BB%A5%E5%BC%95%E5%85%A5%E9%9D%9E%E7%BA%BF%E6%80%A7%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">为什么ReLU可以引入非线性？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%8D%B7%E7%A7%AF%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">三 卷积层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">1.工作流程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8D%B7%E7%A7%AF%E6%A0%B8%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">2.卷积核：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B6%85%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-number">3.3.</span> <span class="toc-text">3.超参数：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%EF%BC%89%E6%BB%A4%E6%B3%A2%E5%99%A8%E6%95%B0%E9%87%8F-Number-of-Filters-%EF%BC%9A"><span class="toc-number">3.3.1.</span> <span class="toc-text">(1）滤波器数量 (Number of Filters)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A1%AB%E5%85%85-Padding-%EF%BC%9A"><span class="toc-number">3.3.2.</span> <span class="toc-text">(2) 填充 (Padding)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%EF%BC%89%E6%AD%A5%E5%B9%85-Stride-%EF%BC%9A"><span class="toc-number">3.3.3.</span> <span class="toc-text">(3）步幅 (Stride)：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%B1%A0%E5%8C%96%E5%B1%82-Pooling%EF%BC%8C%E4%B9%9F%E7%A7%B0%E6%B1%87%E8%81%9A%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">四 池化层 (Pooling，也称汇聚层)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%9B%AE%E7%9A%84%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">（1）目的：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#a-%E9%99%8D%E4%BD%8E%E5%8D%B7%E7%A7%AF%E5%B1%82%E5%AF%B9%E4%BD%8D%E7%BD%AE%E7%9A%84%E6%95%8F%E6%84%9F%E6%80%A7"><span class="toc-number">4.1.1.</span> <span class="toc-text">a.降低卷积层对位置的敏感性:</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#b-%E9%99%8D%E4%BD%8E%E5%AF%B9%E7%A9%BA%E9%97%B4%E9%99%8D%E9%87%87%E6%A0%B7%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%95%8F%E6%84%9F%E6%80%A7"><span class="toc-number">4.1.2.</span> <span class="toc-text">b.降低对空间降采样表示的敏感性:</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%A4%E7%A7%8Dpooling%EF%BC%9A"><span class="toc-number">4.2.</span> <span class="toc-text">（2）两种pooling：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E7%8E%B0%E4%BB%A3CNN%E7%BD%91%E7%BB%9C%EF%BC%9A%E4%BB%8ELeNet%E5%88%B0ResNet"><span class="toc-number">5.</span> <span class="toc-text">五 现代CNN网络：从LeNet到ResNet</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-LeNet%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">1.LeNet：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-AlexNet"><span class="toc-number">5.2.</span> <span class="toc-text">2.AlexNet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-VGG"><span class="toc-number">5.3.</span> <span class="toc-text">3.VGG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-NiN"><span class="toc-number">5.4.</span> <span class="toc-text">4.NiN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-GoogLeNet"><span class="toc-number">5.5.</span> <span class="toc-text">5.GoogLeNet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-ResNet"><span class="toc-number">5.6.</span> <span class="toc-text">6.ResNet</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E6%97%A5%E8%AF%AD/%E8%AF%AD%E6%B3%95/24%20%E5%81%87%E5%AE%9A%E5%BD%A2%EF%BC%9A%E3%81%B0%E5%BD%A2/" title="24 假定形：ば形">24 假定形：ば形</a><time datetime="2025-12-01T05:02:38.000Z" title="发表于 2025-12-01 13:02:38">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/3%20RNN&amp;Transformer/" title="3 RNN&amp;Transformer">3 RNN&amp;Transformer</a><time datetime="2025-12-01T04:55:36.000Z" title="发表于 2025-12-01 12:55:36">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/4%20Image%20Generation%20Intro/" title="4 Image Generation Intro">4 Image Generation Intro</a><time datetime="2025-12-01T04:55:31.000Z" title="发表于 2025-12-01 12:55:31">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/6%20Object%20Detection/" title="6 Object Detection">6 Object Detection</a><time datetime="2025-12-01T04:55:11.000Z" title="发表于 2025-12-01 12:55:11">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/1.%20CNN/" title="1. CNN">1. CNN</a><time datetime="2025-12-01T04:54:29.000Z" title="发表于 2025-12-01 12:54:29">2025-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By ffffurina</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="/"></script></div></body></html>
