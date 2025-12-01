@@ -4,5 +4,5 @@ block content
   include ./includes/mixins/article-sort.pug
   #archive
     .article-sort-title= `${_p('page.articles')} - ${getArchiveLength()}`
-    +articleSort(page.posts)
+    +articleSort(page.posts.sort('date', -1))
     include includes/pagination.pug

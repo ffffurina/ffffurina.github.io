@@ -78,7 +78,7 @@ auto_category:
 # Category Generator
 category_generator:
   per_page: 10
-  order_by: title
+  order_by: -date
 
 # Archive Generator
 archive_generator:
@@ -86,7 +86,7 @@ archive_generator:
   yearly: true
   monthly: true
   daily: false
-  order_by: title
+  order_by: -date
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta

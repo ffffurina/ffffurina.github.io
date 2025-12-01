@@ -8,5 +8,5 @@ block content
     include ./includes/mixins/article-sort.pug
     #tag
       .article-sort-title= _p('page.tag') + ' - ' + page.tag
-      +articleSort(page.posts)
+      +articleSort(page.posts.sort('date', -1))
       include includes/pagination.pug
