@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CV/Vision with Deep Learning/3 RNN&Transformer.md",
+                "file": "_templates/NewPost.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3 RNN&Transformer"
-            }
-          },
-          {
-            "id": "2ed3f203d92d7f30",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/计算机视觉/1. CNN.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "1. CNN"
+              "title": "NewPost"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -182,14 +167,27 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "templater-obsidian:Templater": false
     }
   },
-  "active": "1964420e3363186e",
+  "active": "6357946ace79e92e",
   "lastOpenFiles": [
-    "_posts/日语/词汇",
-    "_posts/日语/语法/1 判断句：です.md",
-    "_posts/日语/语法/标日 语法总结.md",
+    "_posts/计算机视觉/未命名.md",
+    "_templates/NewPost.md",
+    "未命名.md",
+    "_posts/日语/未命名.md",
+    "_posts/未命名.md",
+    "_posts/未命名",
+    "_posts/_templates/未命名.md",
+    "_posts/计算机视觉/未命名 1.md",
+    "_posts/计算机视觉/1. CNN.md",
+    "未命名",
+    "_posts/计算机视觉/6 Object Detection.md",
+    "_posts/计算机视觉/5 Image Segmentation.md",
+    "_posts/计算机视觉/4 Image Generation Intro.md",
+    "_posts/计算机视觉/3 RNN&Transformer.md",
+    "_posts/计算机视觉/2 Visualization and Understanding -- breaking down CNN gradients and parameters.md",
     "_posts/日语/语法/26 使役形.md",
     "_posts/日语/语法/25 被动形.md",
     "_posts/日语/语法/24 假定形：ば形.md",
@@ -203,19 +201,11 @@
     "_posts/日语/语法/16 可能形 え段+る，られる.md",
     "_posts/日语/语法/15 定语从句.md",
     "_posts/日语/语法/14 过去形：た形.md",
-    "_posts/日语/语法/13 辞書形：こと，前に.md",
-    "_posts/日语/语法/12 否定形：ない形.md",
-    "_posts/日语/语法/11 て形用于动词的连；并列词语的连接法.md",
-    "_posts/日语/语法/8-10 连用形：て形【进行时，请求】.md",
-    "_posts/日语/语法/7 疑问代词.md",
-    "_posts/日语/语法/6 形容词.md",
-    "_posts/日语/语法/4,5 敬体形：ます形.md",
-    "_posts/日语/语法/3 有：います、あります.md",
-    "_posts/日语/语法/2 指示代词：こそあど.md",
+    "_templates",
+    "_posts/日语/词汇",
     "_posts/日语/语法",
     "_posts/日语",
     "_posts/计算机视觉",
-    "CV/Vision with Deep Learning/4 Image Generation Intro.md",
     "深度学习/attachments/Pasted image 20250814174154.png",
     "深度学习/attachments/Pasted image 20250814173745.png",
     "深度学习/attachments/Pasted image 20250813150018.png",
@@ -228,10 +218,6 @@
     "CV/Vision with Deep Learning/attachments/2f4d6d3c-6642-4b9e-a57f-822b653eb4d8.png",
     "CV/ppt/10 Multiview Stereo(1).pdf",
     "CV/ppt/09 Structure from Motion.pdf",
-    "CV/ppt/08 Two-View Stereo.pdf",
-    "CV/ppt/07 Epipolar Geometry.pdf",
-    "CV/ppt/06 Camera Calibration.pdf",
-    "CV/ppt/05 Image Stitching.pdf",
-    "CV/ppt/04 Feature Detection.pdf"
+    "CV/ppt/08 Two-View Stereo.pdf"
   ]
 }
