@@ -1,0 +1,205 @@
+/* 限制文章内图片最大宽度，防止溢出 */
+#article-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 8px; /* 可选：给图片加个圆角 */
+}
+
+/* 针对 gallery 相册的特殊处理 */
+.gallery-group img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 书架 (Books) 样式调整 */
+.books-list .flink-list-item {
+  height: auto !important; /* 允许高度自适应 */
+  min-height: 180px;
+  background-color: #f9f4ea; /* 浅棕色/米色背景 */
+  border: 1px solid #e3d5c0; /* 边框 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  text-align: left; /* 确保文字左对齐 */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.books-list .flink-list-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.books-list .flink-list-item .flink-item-icon {
+  width: 100px !important; /* 封面宽度 */
+  height: 150px !important; /* 封面高度 */
+  border-radius: 4px !important; /* 书籍封面圆角较小 */
+  margin: 15px 10px 15px 15px !important; /* 调整边距: 上 右 下 左 */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* 封面阴影 */
+}
+
+.books-list .flink-list-item:hover .flink-item-icon {
+  width: 100px !important; /* 鼠标悬停时不缩小 */
+  margin-left: 15px !important; /* 保持左边距一致 */
+}
+
+.books-list .flink-list-item a .flink-item-name {
+  padding-top: 15px; /* 调整文字垂直位置 */
+  padding-left: 0; /* 移除可能的左内边距 */
+  white-space: normal !important; /* 允许换行 */
+  height: auto !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  font-size: 1.2em !important; /* 稍微调小字号 */
+  line-height: 1.3 !important; /* 调整行高防止重叠 */
+  color: #5d4037; /* 深棕色标题 */
+}
+
+.books-list .flink-list-item a .flink-item-desc {
+  white-space: normal !important; /* 允许换行 */
+  height: auto !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  margin-top: 8px; /* 增加与标题的间距 */
+  color: #8d6e63; /* 浅棕色描述 */
+  font-size: 0.95em;
+}
+
+/* 友链通用样式修复 */
+.flink-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flink-list-item {
+  float: none !important;
+  height: auto !important;
+  min-height: 100px;
+  width: calc(100% / 2 - 15px) !important; /* 调整为一行两个，增加宽度 */
+}
+
+@media screen and (max-width: 600px) {
+  .flink-list-item {
+    width: 100% !important;
+  }
+}
+
+.flink-item-name, .flink-item-desc {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  height: auto !important;
+}
+
+/* 归档 (Archive) 样式调整 */
+.article-sort-item {
+  margin: 0 0 10px 0 !important; /* 减少条目间距 */
+}
+
+.article-sort-item-img {
+  width: 60px !important; /* 稍微调小图片 */
+  height: 60px !important;
+}
+
+.article-sort-item-title {
+  font-size: 1.1em !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-sort-title {
+  margin-left: 10px !important;
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+}
+
+.article-sort {
+  margin-left: 10px !important;
+  padding-left: 20px !important;
+  border-left: 2px solid #a4d8fa !important;
+}
+
+/* 游记 (Travel) 页面样式 */
+.travel-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.travel-item {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.travel-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.travel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 10px;
+}
+
+.travel-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.travel-title:hover {
+  color: #49b1f5;
+}
+
+.travel-meta {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.travel-location {
+  margin-right: 15px;
+}
+
+.travel-gallery {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.travel-img-box {
+  flex: 1;
+  overflow: hidden;
+}
+
+.travel-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+  margin: 0 !important; /* Override article img margin */
+}
+
+.travel-img-box:hover img {
+  transform: scale(1.1);
+}
+
+.travel-excerpt {
+  color: #666;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+

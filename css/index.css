@@ -1644,7 +1644,7 @@ canvas:not(#ribbon-canvas),
   --card-meta: #075f5a;
   --sidebar-bg: #f6f8fa;
   --sidebar-menu-bg: #fff;
-  --btn-hover-color: #38d5be;
+  --btn-hover-color: #18786f;
   --btn-color: #fff;
   --btn-bg: #38d5be;
   --text-bg-hover: rgba(56,213,190,0.7);
@@ -1658,7 +1658,7 @@ canvas:not(#ribbon-canvas),
   --toc-link-color: #666261;
   --card-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.05);
   --card-hover-box-shadow: 0 3px 8px 6px rgba(7,17,27,0.09);
-  --pseudo-hover: #38d5be;
+  --pseudo-hover: #18786f;
   --headline-presudo: #a0a0a0;
   --scrollbar-color: #38d5be;
   --default-bg-color: #38d5be;
@@ -3381,6 +3381,39 @@ figure.highlight pre .javascript .function {
     -ms-transform: translateX(0);
     transform: translateX(0);
   }
+}
+#page-header,
+#page-header:before {
+  background-color: transparent !important;
+  background-image: unset !important;
+}
+.top-img {
+  height: 12.5rem;
+  display: block;
+  margin: -50px -40px 50px -40px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.top-img .read-mode {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .top-img {
+    margin: -1.8rem -0.7rem 1.8rem -0.7rem;
+  }
+}
+[data-theme='dark'] .top-img {
+  filter: brightness(0.8);
 }
 #aside-content {
   width: 26%;
@@ -5565,7 +5598,7 @@ figure.highlight pre .javascript .function {
 #waline-wrap {
   --waline-font-size: 1.1em;
   --waline-theme-color: #38d5be;
-  --waline-active-color: #38d5be;
+  --waline-active-color: #18786f;
 }
 #waline-wrap .wl-comment-actions > button:not(last-child) {
   padding-right: 4px;
@@ -7004,7 +7037,7 @@ blockquote.pullquote.right {
   --global-bg: #0d0d0d;
   --font-color: rgba(255,255,255,0.7);
   --hr-border: rgba(255,255,255,0.4);
-  --hr-before-color: rgba(255,255,255,0.7);
+  --hr-before-color: rgba(255,255,255,0.9);
   --search-bg: #121212;
   --search-input-color: rgba(255,255,255,0.7);
   --search-a-color: rgba(255,255,255,0.7);
@@ -7089,7 +7122,7 @@ blockquote.pullquote.right {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.3);
   content: '';
 }
 [data-theme='dark'] .container code {
