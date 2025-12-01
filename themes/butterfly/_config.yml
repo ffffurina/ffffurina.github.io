@@ -79,22 +79,24 @@ tag_img: transparent
 # The banner image of tag page, you can set the banner image for each tag
 # Format:
 #  - tag name: xxxxx
-tag_per_img: 
+tag_per_img: transparent
 
 # Note: category page, not categories page
-category_img: 
+category_img: transparent
 
 # The banner image of category page, you can set the banner image for each category
 # Format:
 #  - category name: xxxxx
 category_per_img:
+  游记: https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&auto=format&fit=crop&w=1308&q=80
 
 # The background image of footer
 footer_img: transparent
 
 # Website Background
 # Can set it to color or image url
-background: /img/background.jpg
+background: /img/background_5.jpg
+# 背景5是jpg，其它是png
 
 cover:
   # Disable the cover or not
@@ -345,7 +347,7 @@ aside:
     # Sort of order. 1, asc for ascending; -1, desc for descending
     order: -1
   card_webinfo:
-    enable: true
+    enable: false
     post_count: true
     last_push_date: true
     sort_order:
@@ -760,7 +762,7 @@ theme_color:
   enable: true
   main: "#38D5BE"       
   paginator: "#17A589"  
-  button_hover: "#38D5BE"
+  button_hover: "#18786F"
   text_selection: "#38D5BE"
   link_color: "#FCB103"
   meta_color: "#075F5A"
@@ -909,7 +911,7 @@ clickShowText:
 # https://github.com/francoischalifour/medium-zoom
 # https://fancyapps.com/fancybox/
 # Leave it empty if you don't need lightbox
-lightbox:
+lightbox: fancybox
 
 # --------------------------------------
 # Tag Plugins settings
@@ -1054,7 +1056,7 @@ css_prefix: true
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 inject:
   head:
-    # - <link rel="stylesheet" href="/xxx.css">
+    - <link rel="stylesheet" href="/css/custom.css">
   bottom:
     # - <script src="xxxx"></script>
 

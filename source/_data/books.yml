@@ -1,0 +1,16 @@
+- class_name: 社会科学
+  class_desc: 探索新知与重温经典
+  link_list:
+    - name: 《政治学通识》
+      link: /2025/12/01/读书笔记/政治学通识/
+      avatar: https://tse1.mm.bing.net/th/id/OIP.e6-LTBth9eQl4UWgHFghKgHaKs?rs=1&pid=ImgDetMain&o=7&rm=3
+      descr: "政治学入门书籍"
+
+
+- class_name: 待读清单
+  class_desc: 下一段旅程
+  link_list:
+    - name: 《雪国》
+      link: #
+      avatar: https://weread-1258476243.file.myqcloud.com/weread/cover/73/cpplatform_2u94arubg512sjvwkr4ef5/t6_cpplatform_2u94arubg512sjvwkr4ef51675254765.jpg
+      descr: "物哀之美。"

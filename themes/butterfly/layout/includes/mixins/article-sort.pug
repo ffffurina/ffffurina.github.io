@@ -1,13 +1,13 @@
 mixin articleSort(posts)
   .article-sort
-    - let year
+    - let yearMonth
     - posts.forEach(article => {
-      - const tempYear = date(article.date, 'YYYY')
+      - const tempYearMonth = date(article.date, 'YYYY-MM')
       - const noCoverClass = article.cover === false || !theme.cover.archives_enable ? 'no-article-cover' : ''
       - const title = article.title || _p('no_title')
-      if tempYear !== year
-        - year = tempYear
-        .article-sort-item.year= year
+      if tempYearMonth !== yearMonth
+        - yearMonth = tempYearMonth
+        .article-sort-item.year= yearMonth
       .article-sort-item(class=noCoverClass)
         if article.cover && theme.cover.archives_enable
           a.article-sort-item-img(href=url_for(article.path) title=title)

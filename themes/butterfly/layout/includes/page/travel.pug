@@ -1,0 +1,40 @@
+#article-container
+  .travel-container
+    - const travelPosts = site.categories.findOne({name: '游记'}) ? site.categories.findOne({name: '游记'}).posts.sort('date', -1) : []
+    
+    if travelPosts.length > 0
+      each post in travelPosts.data
+        .travel-item
+          .travel-header
+            a.travel-title(href=url_for(post.path))= post.title
+            .travel-meta
+              if post.tags && post.tags.length > 0
+                span.travel-location
+                  i.fas.fa-map-marker-alt
+                  = ' ' + post.tags.data[0].name
+              span.travel-date
+                i.far.fa-calendar-alt
+                = ' ' + date(post.date, config.date_format)
+          
+          - let imgRegex = /<img[^>]+src="([^">]+)"/g
+          - let content = post.content
+          - let images = []
+          - let match
+          - let count = 0
+          - while ((match = imgRegex.exec(content)) !== null && count < 3)
+            - images.push(match[1])
+            - count++
+            
+          if images.length > 0
+            .travel-gallery
+              each img in images
+                .travel-img-box
+                  a(href=url_for(post.path))
+                    img(src=img)
+          
+          .travel-excerpt
+            != post.description || strip_html(post.excerpt || post.content).substring(0, 150) + '...'
+            
+    else
+      .travel-empty
+        | 暂无游记，敬请期待...
