@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ffffurina.top/2025/11/27/3%20RNN&Transformer/</loc>
+    
+    <lastmod>2025-12-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/2025/11/30/6%20Object%20Detection/</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/2025/11/27/5%20Image%20Segmentation/</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/2025/11/27/4%20Image%20Generation%20Intro/</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/</loc>
+    
+    <lastmod>2025-11-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ffffurina.top/travel/index.html</loc>
     
     <lastmod>2025-11-30</lastmod>
@@ -73,43 +118,27 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://ffffurina.top/2025/11/30/hello-world/</loc>
-    
-    <lastmod>2025-11-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://ffffurina.top/</loc>
-    <lastmod>2025-11-30</lastmod>
+    <lastmod>2025-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
-  <url>
-    <loc>https://ffffurina.top/tags/node-js/</loc>
-    <lastmod>2025-11-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ffffurina.top/tags/hexo/</loc>
-    <lastmod>2025-11-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://ffffurina.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2025-11-30</lastmod>
+    <loc>https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2025-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</loc>
+    <lastmod>2025-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

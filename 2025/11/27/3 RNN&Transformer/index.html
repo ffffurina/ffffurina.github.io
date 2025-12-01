@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>3 RNN&amp;Transformer | Blog de ffffurina</title><meta name="author" content="ffffurina,ffffurina7@gmail.com"><meta name="copyright" content="ffffurina"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 Transformer。具体内容参考RNN[obsidian:&#x2F;&#x2F;open?vault&#x3D;CS%E6%8A%80%E6%9C%AF%E6%A0%88&amp;file&#x3D;%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%2F6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3 RNN&amp;Transformer">
+<meta property="og:url" content="https://ffffurina.top/2025/11/27/3%20RNN&Transformer/index.html">
+<meta property="og:site_name" content="Blog de ffffurina">
+<meta property="og:description" content="这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 Transformer。具体内容参考RNN[obsidian:&#x2F;&#x2F;open?vault&#x3D;CS%E6%8A%80%E6%9C%AF%E6%A0%88&amp;file&#x3D;%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%2F6">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ffffurina.top/img/avatar.jpg">
+<meta property="article:published_time" content="2025-11-27T06:11:06.000Z">
+<meta property="article:modified_time" content="2025-12-01T04:28:56.892Z">
+<meta property="article:author" content="ffffurina">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ffffurina.top/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "3 RNN&Transformer",
+  "url": "https://ffffurina.top/2025/11/27/3%20RNN&Transformer/",
+  "image": "https://ffffurina.top/img/avatar.jpg",
+  "datePublished": "2025-11-27T06:11:06.000Z",
+  "dateModified": "2025-12-01T04:28:56.892Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ffffurina",
+      "url": "https://ffffurina.top"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '3 RNN&Transformer',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Blog de ffffurina" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><span> 小记</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/notes/"><i class="fa-fw fas fa-code-branch"></i><span> 全部小记</span></a></li><li><a class="site-page child" href="/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"><i class="fa-fw fas fa-eye"></i><span> 计算机视觉</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Blog de ffffurina</span></a><a class="nav-page-title" href="/"><span class="site-name">3 RNN&amp;Transformer</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><span> 小记</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/notes/"><i class="fa-fw fas fa-code-branch"></i><span> 全部小记</span></a></li><li><a class="site-page child" href="/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"><i class="fa-fw fas fa-eye"></i><span> 计算机视觉</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书架</span></a></div><div class="menus_item"><a class="site-page" href="/travel/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 游记</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">3 RNN&amp;Transformer</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-27T06:11:06.000Z" title="发表于 2025-11-27 14:11:06">2025-11-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-01T04:28:56.892Z" title="更新于 2025-12-01 12:28:56">2025-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B0%8F%E8%AE%B0/">小记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的 <strong>Transformer</strong>。<br>具体内容参考RNN[obsidian://open?vault=CS%E6%8A%80%E6%9C%AF%E6%A0%88&amp;file=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%2F6.RNN]<br>Transformer[obsidian://open?vault=CS%E6%8A%80%E6%9C%AF%E6%A0%88&amp;file=NLP%2FTransformer]</p>
+<hr>
+<h3 id="第一阶段：序列建模与-RNN-Recurrent-Neural-Networks"><a href="#第一阶段：序列建模与-RNN-Recurrent-Neural-Networks" class="headerlink" title="第一阶段：序列建模与 RNN (Recurrent Neural Networks)"></a>第一阶段：序列建模与 RNN (Recurrent Neural Networks)</h3><p>在 CNN 中，我们处理的是固定大小的输入（如 $224 \times 224$ 的图像）。但在现实世界中，很多数据是变长的序列（如文本、语音、视频流）。</p>
+<h4 id="1-RNN-的核心思想"><a href="#1-RNN-的核心思想" class="headerlink" title="1. RNN 的核心思想"></a>1. RNN 的核心思想</h4><p>RNN 的设计初衷是为了处理<strong>序列数据</strong>。它的核心在于拥有一个<strong>“内部状态” (Internal State)</strong>，即隐藏层 $h_t$。</p>
+<ul>
+<li><strong>递推公式</strong>：$h<em>t = f_W(h</em>{t-1}, x_t)$ 。<ul>
+<li>$h_t$：当前时刻的隐藏状态。</li>
+<li>$h_{t-1}$：上一时刻的隐藏状态（记忆）。</li>
+<li>$x_t$：当前时刻的输入。</li>
+<li>$W$：权重参数。<strong>关键点</strong>：在所有时间步中，<strong>权重 $W$ 是共享的</strong> 。</li>
+<li>这与 CNN 在空间上共享权重（卷积核）有异曲同工之妙，RNN 是在<strong>时间上</strong>共享权重。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-应用模式"><a href="#2-应用模式" class="headerlink" title="2. 应用模式"></a>2. 应用模式</h4><p>RNN 极其灵活，PPT 展示了多种输入输出模式：</p>
+<ul>
+<li><strong>One-to-Many</strong>：输入一张图，输出一串文字（Image Captioning 给图片打标题）。</li>
+<li><strong>Many-to-One</strong>：输入一段视频（多帧），输出一个动作类别（Action Recognition）。</li>
+<li><strong>Many-to-Many</strong>：机器翻译（Seq2Seq）或视频逐帧分类。</li>
+</ul>
+<h4 id="3-致命缺陷：梯度消失-爆炸"><a href="#3-致命缺陷：梯度消失-爆炸" class="headerlink" title="3. 致命缺陷：梯度消失/爆炸"></a>3. 致命缺陷：梯度消失/爆炸</h4><p>虽然理论上 RNN 可以记住无限长的历史，但在反向传播（BPTT）时，梯度需要连乘。</p>
+<ul>
+<li>如果权重矩阵的特征值小于 1，梯度会指数级衰减（<strong>梯度消失</strong>），导致模型“遗忘”长距离的信息。</li>
+<li>如果特征值大于 1，梯度会指数级增长（<strong>梯度爆炸</strong>），导致训练不稳定。</li>
+<li><strong>解决方案</strong>：<strong>LSTM (Long Short-Term Memory)</strong>。PPT 提到了 LSTM 通过引入“门控机制”（遗忘门、输入门、输出门）来构建一条可以让梯度畅通无阻的“高速公路”（Cell State），从而有效缓解了梯度消失问题。</li>
+</ul>
+<hr>
+<h3 id="第二阶段：注意力机制-Attention-Mechanism"><a href="#第二阶段：注意力机制-Attention-Mechanism" class="headerlink" title="第二阶段：注意力机制 (Attention Mechanism)"></a>第二阶段：注意力机制 (Attention Mechanism)</h3><p>RNN 最大的瓶颈在于：它试图把所有历史信息压缩到一个固定长度的向量 $h_t$ 中。当序列很长时，这几乎是不可能的。</p>
+<p><strong>Attention 的直觉</strong>：<br>在生成输出（比如写图片描述的下一个词）时，不要只盯着那个压缩后的 $h_t$，而是<strong>回头看一眼输入序列的所有位置</strong>，并根据相关性<strong>聚焦（Attend）</strong> 到最相关的部分。</p>
+<ul>
+<li><strong>软注意力 (Soft Attention)</strong>：对所有输入区域加权求和，是可微的，可以端到端训练。</li>
+<li><strong>硬注意力 (Hard Attention)</strong>：通过强化学习或采样选择某个区域，不可微。<br><img src="1deca69a-13d4-44bd-9591-3ccae7a60298.png" alt=""></li>
+</ul>
+<hr>
+<h3 id="第三阶段：Transformer-与-ViT-Vision-Transformer"><a href="#第三阶段：Transformer-与-ViT-Vision-Transformer" class="headerlink" title="第三阶段：Transformer 与 ViT (Vision Transformer)"></a>第三阶段：Transformer 与 ViT (Vision Transformer)</h3><p>这是目前 AI 领域最重要的架构变革。2017 年的论文《Attention Is All You Need》提出：如果我们有了注意力机制，还需要 RNN 的循环结构吗？答案是不需要。<br><img src="f860c041-0c54-4f2a-801e-8bd8274cf07a.png" alt=""></p>
+<h4 id="1-Transformer-的核心：自注意力-Self-Attention"><a href="#1-Transformer-的核心：自注意力-Self-Attention" class="headerlink" title="1. Transformer 的核心：自注意力 (Self-Attention)"></a>1. Transformer 的核心：自注意力 (Self-Attention)</h4><p>Transformer 彻底抛弃了循环和卷积，完全依赖注意力机制。</p>
+<ul>
+<li><strong>Q, K, V 模型</strong>：输入向量被映射为 Query (查询)、Key (键)、Value (值)。</li>
+<li><strong>计算公式</strong>：<script type="math/tex; mode=display">\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V</script><ul>
+<li>$QK^T$ 计算了查询和所有键的<strong>相似度（相关性）</strong>。</li>
+<li>Softmax 将其归一化为权重。</li>
+<li>最后用这些权重对 $V$ 进行加权求和。</li>
+</ul>
+</li>
+<li><strong>位置编码 (Positional Encoding)</strong>：因为 Transformer 是并行处理所有 Token 的，它本身不知道“顺序”。所以必须手动加上位置信息。</li>
+</ul>
+<h4 id="2-Vision-Transformer-ViT"><a href="#2-Vision-Transformer-ViT" class="headerlink" title="2. Vision Transformer (ViT)"></a>2. Vision Transformer (ViT)</h4><p>如何把为文本设计的 Transformer 用在图像上？PPT 详细介绍了 ViT 的做法：</p>
+<ol>
+<li><strong>Patch Partition</strong>：把一张 $224 \times 224$ 的图切成 $16 \times 16$ 个小方块（Patch）。</li>
+<li><strong>Linear Projection</strong>：把每个 Patch 拉平（Flatten）并通过一个全连接层映射为向量。<strong>这就相当于图片中的“单词”（Token）</strong>。</li>
+<li><strong>Transformer Encoder</strong>：把这些 Patch 向量加上位置编码，直接扔进标准的 Transformer 编码器里。</li>
+<li><strong>Class Token</strong>：借鉴 BERT，在序列开头加一个特殊的 <code>[CLS]</code> Token，最后用它的输出来做分类。<br><img src="2f4d6d3c-6642-4b9e-a57f-822b653eb4d8.png" alt=""><br><strong>ViT vs CNN (Inductive Bias 的再思考)</strong>：</li>
+</ol>
+<ul>
+<li><strong>CNN</strong> 有很强的归纳偏置（局部性、平移等变性），所以它在小数据上学得快，泛化好。</li>
+<li><strong>ViT</strong> 几乎没有这些偏置（它允许任意两个 Patch 之间直接交互，是全局的）。<ul>
+<li><strong>缺点</strong>：在小数据集（如 ImageNet-1k）上容易过拟合，不如 ResNet。</li>
+<li><strong>优点</strong>：在大数据（如 JFT-300M）上预训练后，它的上限远高于 CNN，因为它不会被“局部窗口”限制住视野。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Swin-Transformer"><a href="#Swin-Transformer" class="headerlink" title="Swin Transformer"></a>Swin Transformer</h3><h3 id="第四阶段：极简主义的-MLP-Mixer"><a href="#第四阶段：极简主义的-MLP-Mixer" class="headerlink" title="第四阶段：极简主义的 MLP-Mixer"></a>第四阶段：极简主义的 MLP-Mixer</h3><p>[cite_start]在 ViT 之后，Google 提出了更激进的 <strong>MLP-Mixer</strong> [cite: 62]。</p>
+<ul>
+<li>它连 Attention 都不用，只用全连接层（MLP）。</li>
+<li><strong>架构</strong>：<ol>
+<li><strong>Token-mixing MLP</strong>：在空间维度上（Patches 之间）混合信息。</li>
+<li><strong>Channel-mixing MLP</strong>：在通道维度上（特征之间）混合信息。</li>
+</ol>
+</li>
+<li>这证明了只要能有效地混合空间和通道信息，具体的算子（卷积 vs 注意力 vs MLP）可能没那么重要，关键在于架构的整体设计。</li>
+</ul>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>从 RNN 到 Transformer，我们见证了 <strong>“序列长度限制的突破”</strong> 和 <strong>“归纳偏置的移除”</strong>。</p>
+<ul>
+<li><strong>RNN</strong> 让我们可以处理序列。</li>
+<li><strong>Attention</strong> 让我们不再受限于定长记忆。</li>
+<li><strong>Transformer/ViT</strong> 统一了 NLP 和 CV，证明了只要数据足够多，一个通用的、全局关联的模型可以学习到比人类设计的先验（卷积）更强大的特征表示。<br><img src="/images/82bca4fd-9ab5-4e03-a745-48b8ba47dfa2.png" alt=""></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://ffffurina.top">ffffurina</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/">https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://ffffurina.top" target="_blank">Blog de ffffurina</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/27/4%20Image%20Generation%20Intro/" title="4 Image Generation Intro"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">4 Image Generation Intro</div></div><div class="info-2"><div class="info-item-1">本讲涵盖了深度生成模型的四大主流范式：自回归模型 (Autoregressive Models)、变分自编码器 (VAE)、生成对抗网络 (GAN) 以及扩散模型 (Diffusion Models)。可以参考深度学习高级话题[]  Lecture 21: Image Generation (图像生成)生成式学习的核心目标是学习数据的潜在分布 $P(x)$，从而能够生成与真实数据分布相似的新样本。 1. 自回归模型 (Autoregressive Models)1.1 核心思想自回归模型将联合概率分布 $p(x)$ 分解为一系列条件概率的乘积。假设图像 $x$ 由序列 $(x_1, x_2, …, x_T)$ 组成（例如按光栅扫描顺序的像素），则：  p(x) = \prod_{t=1}^{T} p(x_t | x_1, ..., x_{t-1})1.2 训练与生成 训练：通过最大似然估计 (MLE) 优化参数 $W$，F即最大化 $\sum_i \log p(x^{(i)})$.  生成：是一个串行过程。先生成 $x_1$，再根据 $x_1$ 生成 $x_2$，依此类推。  1...</div></div></div></a><a class="pagination-related" href="/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/" title="2 Visualization and Understanding -- breaking down CNN gradients and parameters"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">2 Visualization and Understanding -- breaking down CNN gradients and parameters</div></div><div class="info-2"><div class="info-item-1">在 CNN 取得巨大成功后，一个核心问题随之而来：“神经网络到底学到了什么？” 我们常常把深度网络称为“黑盒”，而这一章的内容就是试图打开这个黑盒，通过可视化手段来解释网络的内部运作机制。  第一部分：可视化网络内部 (Visualizing Weights &amp; Activations)我们要看网络内部到底长什么样，最直接的方法就是看它的权重（Weights） 和激活值（Activations）。 1. 可视化第一层卷积核 (Visualizing First Layer Filters) 现象：当我们把 CNN 第一层卷积核（例如 $64 \times 3 \times 7 \times 7$）可视化出来时，会发现它们惊人地相似，无论是在 AlexNet、ResNet 还是其他网络中 。 解释：第一层卷积核主要学到的是边缘（Edges） 和颜色斑点（Blobs）。这是因为图像的局部统计特性决定了边缘是构成视觉世界的最基本元素。这与人类视觉皮层 V1 区的感受野非常相似。 局限：直接可视化权重只对第一层有效。更高层的卷积核处理的是上一层的特征图，维度更高且抽象，直接看权重...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ffffurina</div><div class="author-info-description">超越技术，丈量世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/ffffurina"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/ffffurina" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:ffffurina7@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%BA%8F%E5%88%97%E5%BB%BA%E6%A8%A1%E4%B8%8E-RNN-Recurrent-Neural-Networks"><span class="toc-number">1.</span> <span class="toc-text">第一阶段：序列建模与 RNN (Recurrent Neural Networks)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-RNN-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text">1. RNN 的核心思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BA%94%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">2. 应用模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%87%B4%E5%91%BD%E7%BC%BA%E9%99%B7%EF%BC%9A%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1-%E7%88%86%E7%82%B8"><span class="toc-number">1.3.</span> <span class="toc-text">3. 致命缺陷：梯度消失&#x2F;爆炸</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-Attention-Mechanism"><span class="toc-number">2.</span> <span class="toc-text">第二阶段：注意力机制 (Attention Mechanism)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9ATransformer-%E4%B8%8E-ViT-Vision-Transformer"><span class="toc-number">3.</span> <span class="toc-text">第三阶段：Transformer 与 ViT (Vision Transformer)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Transformer-%E7%9A%84%E6%A0%B8%E5%BF%83%EF%BC%9A%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B-Self-Attention"><span class="toc-number">3.1.</span> <span class="toc-text">1. Transformer 的核心：自注意力 (Self-Attention)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Vision-Transformer-ViT"><span class="toc-number">3.2.</span> <span class="toc-text">2. Vision Transformer (ViT)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swin-Transformer"><span class="toc-number">4.</span> <span class="toc-text">Swin Transformer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%9E%81%E7%AE%80%E4%B8%BB%E4%B9%89%E7%9A%84-MLP-Mixer"><span class="toc-number">5.</span> <span class="toc-text">第四阶段：极简主义的 MLP-Mixer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/30/6%20Object%20Detection/" title="6 Object Detection">6 Object Detection</a><time datetime="2025-11-30T06:35:20.000Z" title="发表于 2025-11-30 14:35:20">2025-11-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/27/5%20Image%20Segmentation/" title="5 Image Segmentation">5 Image Segmentation</a><time datetime="2025-11-27T07:47:33.000Z" title="发表于 2025-11-27 15:47:33">2025-11-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/27/4%20Image%20Generation%20Intro/" title="4 Image Generation Intro">4 Image Generation Intro</a><time datetime="2025-11-27T06:35:16.000Z" title="发表于 2025-11-27 14:35:16">2025-11-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/27/3%20RNN&amp;Transformer/" title="3 RNN&amp;Transformer">3 RNN&amp;Transformer</a><time datetime="2025-11-27T06:11:06.000Z" title="发表于 2025-11-27 14:11:06">2025-11-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/" title="2 Visualization and Understanding -- breaking down CNN gradients and parameters">2 Visualization and Understanding -- breaking down CNN gradients and parameters</a><time datetime="2025-11-27T05:31:46.000Z" title="发表于 2025-11-27 13:31:46">2025-11-27</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By ffffurina</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.2"></script><script src="/js/main.js?v=5.5.2"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="/"></script></div></body></html>

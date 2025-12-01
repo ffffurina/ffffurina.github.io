@@ -6,7 +6,7 @@
   <link href="https://ffffurina.top/atom.xml" rel="self"/>
   
   <link href="https://ffffurina.top/"/>
-  <updated>2025-11-30T08:57:15.688Z</updated>
+  <updated>2025-11-30T14:31:23.724Z</updated>
   <id>https://ffffurina.top/</id>
   
   <author>
@@ -17,29 +17,131 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://ffffurina.top/2025/11/30/hello-world/"/>
-    <id>https://ffffurina.top/2025/11/30/hello-world/</id>
-    <published>2025-11-30T08:55:10.000Z</published>
-    <updated>2025-11-30T08:57:15.688Z</updated>
+    <title>6 Object Detection</title>
+    <link href="https://ffffurina.top/2025/11/30/6%20Object%20Detection/"/>
+    <id>https://ffffurina.top/2025/11/30/6%20Object%20Detection/</id>
+    <published>2025-11-30T06:35:20.000Z</published>
+    <updated>2025-11-30T14:31:23.724Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;Lecture-22-Object-Detection-目标检测&quot;&gt;&lt;a href=&quot;#Lecture-22-Object-Detection-目标检测&quot; class=&quot;headerlink&quot; title=&quot;Lecture 22: Object</summary>
         
       
     
     
     
-    <category term="学习笔记" scheme="https://ffffurina.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
     
     
-    <category term="node.js" scheme="https://ffffurina.top/tags/node-js/"/>
+  </entry>
+  
+  <entry>
+    <title>5 Image Segmentation</title>
+    <link href="https://ffffurina.top/2025/11/27/5%20Image%20Segmentation/"/>
+    <id>https://ffffurina.top/2025/11/27/5%20Image%20Segmentation/</id>
+    <published>2025-11-27T07:47:33.000Z</published>
+    <updated>2025-11-30T14:31:23.723Z</updated>
     
-    <category term="hexo" scheme="https://ffffurina.top/tags/hexo/"/>
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-任务定义与分类&quot;&gt;&lt;a href=&quot;#1-任务定义与分类&quot; class=&quot;headerlink&quot; title=&quot;1. 任务定义与分类&quot;&gt;&lt;/a&gt;1.</summary>
+        
+      
+    
+    
+    
+    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>4 Image Generation Intro</title>
+    <link href="https://ffffurina.top/2025/11/27/4%20Image%20Generation%20Intro/"/>
+    <id>https://ffffurina.top/2025/11/27/4%20Image%20Generation%20Intro/</id>
+    <published>2025-11-27T06:35:16.000Z</published>
+    <updated>2025-11-30T14:31:23.719Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本讲涵盖了深度生成模型的四大主流范式：自回归模型 (Autoregressive Models)、变分自编码器 (VAE)、生成对抗网络 (GAN) 以及扩散模型 (Diffusion Models)。&lt;br&gt;可以参考深度学习高级话题[]&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>3 RNN&amp;Transformer</title>
+    <link href="https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/"/>
+    <id>https://ffffurina.top/2025/11/27/3%20RNN&amp;Transformer/</id>
+    <published>2025-11-27T06:11:06.000Z</published>
+    <updated>2025-12-01T04:28:56.892Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这一章的内容讲述了深度学习领域的第二次范式转移：从专注于处理网格数据的 CNN，转向处理序列数据的 RNN，最终收敛于目前统治 CV 和 NLP 领域的</summary>
+        
+      
+    
+    
+    
+    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2 Visualization and Understanding -- breaking down CNN gradients and parameters</title>
+    <link href="https://ffffurina.top/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/"/>
+    <id>https://ffffurina.top/2025/11/27/2%20Visualization%20and%20Understanding%20--%20breaking%20down%20CNN%20gradients%20and%20parameters/</id>
+    <published>2025-11-27T05:31:46.000Z</published>
+    <updated>2025-11-30T14:31:23.714Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 CNN 取得巨大成功后，一个核心问题随之而来：&lt;strong&gt;“神经网络到底学到了什么？”&lt;/strong&gt; 我们常常把深度网络称为“黑盒”，而这一章的内容就是试图打开这个黑盒，通过可视化手段来解释网络的内部运作机制。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="小记" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/"/>
+    
+    <category term="计算机视觉" scheme="https://ffffurina.top/categories/%E5%B0%8F%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"/>
+    
     
   </entry>
   
