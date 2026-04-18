@@ -7,8 +7,8 @@ redirect_from:
   - /about.html
 ---
 
-I'm a junior at Peking University, majoring in Artificial Intelligence in the School of Electronics Engineering and Computer Science, while pursuing a dual degree in Economics at the National School of Development. 
-My research interests include embodied AI, natural language processing and AI safety. Recently, I am working on improving open vocabulary navigation of robots. I am passionate about exploring innovative solutions to real-world problems and contributing to the advancement of AI technologies. I am seeking PhD opportunities in the field of AI in Peking University.
+I'm a junior student at Peking University, majoring in Artificial Intelligence in the School of Electronics Engineering and Computer Science, while pursuing a dual degree in Economics at the National School of Development. 
+My research interests include embodied AI, natural language processing and AI safety. Recently, I am working on open vocabulary navigation of robots with 3DGS. I am passionate about exploring innovative solutions to real-world problems and contributing to the advancement of AI technologies. I am seeking PhD opportunities in the field of AI in Peking University.
 
 News
 ======
@@ -22,7 +22,7 @@ Research Interests
 ======
 - Embodied AI
 - Natural Language Processing
-- AI Safety and Alignment
+- LLM Safety and Alignment
 
 Hobbies
 ======
