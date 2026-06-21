@@ -11,8 +11,8 @@ main:
   - title: "Publications"
     url: /publications/
 
-  - title: "Blogs"
-    url: /year-archive/
+  - title: "Blog"
+    url: https://ffffurina.github.io/academic-blog/
     
   - title: "CV"
     url: /cv/
